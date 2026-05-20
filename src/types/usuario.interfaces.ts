@@ -1,7 +1,7 @@
 export interface UsuarioCreateDto{
     Nombre : string;
     Email : string;
-    Passwrod : string;
+    Password : string;
     Direccion? : string;
     Telefono? : string;
 }

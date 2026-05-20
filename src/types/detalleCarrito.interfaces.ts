@@ -10,9 +10,9 @@ export interface DetalleCarritoDto {
     ProductoId: number;
     NombreProducto: string;
     ImagenProducto: string;
-    PrecioUnitario: Float32Array;
+    PrecioUnitario: number;
     Cantidad: number;
-    Subtotal: Float32Array;
+    Subtotal: number;
 }
 
 export interface DetalleCarritoUpdateDto {
