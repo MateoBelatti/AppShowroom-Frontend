@@ -1,13 +1,18 @@
 import { BrowserRouter as Router, Routes, Route} from 'react-router-dom';
+import Header from './components/layotus/header';
+import Footer from './components/layotus/footer';
+import { HomePage } from './pages/homePage';
 
 function App() {
   return (
     <Router>
-      {/* HEADER*/}
+      <Header /> 
       <main>
-
+        <Routes>
+          <Route path='/' element={<HomePage />} />
+        </Routes>
       </main>
-      {/* FOOTER*/}
+      <Footer />
     </Router>
   )
 }

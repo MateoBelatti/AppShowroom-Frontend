@@ -4,6 +4,7 @@ import './index.css'
 import App from './App.tsx'
 import { AuthProvider } from './context/auth.context.tsx'
 import { CarritoProvider } from './context/carrito.context.tsx'
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>

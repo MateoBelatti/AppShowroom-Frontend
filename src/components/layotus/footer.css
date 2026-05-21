@@ -1,0 +1,72 @@
+/* =========================================
+   CONTENEDOR DEL FOOTER
+   ========================================= */
+.footer {
+  background-color: #ffffff; /* Fondo blanco para separar del contenido */
+  border-top: 1px solid var(--border); /* Línea divisoria muy sutil */
+  font-family: var(--sans);
+  margin-top: auto; /* Empuja el footer al final de la página */
+}
+
+/* =========================================
+   MARCA Y DESCRIPCIÓN
+   ========================================= */
+.footer-brand {
+  font-family: var(--heading);
+  font-weight: 700;
+  color: var(--text-h);
+  letter-spacing: 1px;
+}
+
+.footer-description {
+  color: var(--text);
+  font-size: 0.95rem;
+  line-height: 1.6;
+  max-width: 90%;
+}
+
+/* =========================================
+   TÍTULOS DE SECCIÓN
+   ========================================= */
+.footer-section-title {
+  font-family: var(--heading);
+  font-weight: 600;
+  color: var(--text-h);
+  letter-spacing: 0.5px;
+  font-size: 0.9rem;
+}
+
+/* =========================================
+   ENLACES DE NAVEGACIÓN
+   ========================================= */
+.footer-links li,
+.footer-contact li {
+  margin-bottom: 12px;
+  color: var(--text);
+  font-size: 0.95rem;
+}
+
+.footer-links a {
+  text-decoration: none;
+  color: var(--text);
+  transition: color 0.3s ease-in-out;
+  position: relative;
+}
+
+.footer-links a:hover {
+  color: var(--pink-hover); /* El mismo rosa de hover del header */
+}
+
+/* =========================================
+   DIVISOR Y COPYRIGHT
+   ========================================= */
+.footer-divider {
+  border-color: var(--border);
+  opacity: 1;
+}
+
+.footer-bottom p {
+  color: var(--text);
+  font-size: 0.85rem;
+  letter-spacing: 0.5px;
+}
