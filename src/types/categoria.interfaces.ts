@@ -1,10 +1,10 @@
 export interface CategoriaDto {
-    Id: number;
-    Nombre: string;
+    id: number;
+    nombre: string;
 }
 export interface CategoriaCreateDto {
-    Nombre: string;
+    nombre: string;
 }
 export interface CategoriaUpdateDto {
-    Nombre: string;
+    nombre: string;
 }

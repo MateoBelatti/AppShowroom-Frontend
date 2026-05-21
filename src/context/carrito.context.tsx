@@ -15,15 +15,15 @@ export const CarritoProvider = ({ children }: { children: ReactNode }) => {
     useEffect(() =>{
         try {
             const cargarUser = async() =>{
-            if (!auth.user) return;
-            const userId = Number(auth.user.id);
-            const newCarrito = await carritoService.findByIdUsuario(userId);
-            if (!newCarrito) throw new Error("No se encontro carrito para el usuario");
-            setCarrito(newCarrito);
-            const newDetalles = await detalleCarritoService.findAllByIdCarrito(newCarrito.Id)
-            setDetalles(newDetalles);
-        }
-        cargarUser();
+                if (!auth?.user?.id) return;
+                const userId = Number(auth.user.id);
+                const newCarrito = await carritoService.findByIdUsuario(userId);
+                if (!newCarrito) throw new Error("No se encontro carrito para el usuario");
+                setCarrito(newCarrito);
+                const newDetalles = await detalleCarritoService.findAllByIdCarrito(newCarrito.id)
+                setDetalles(newDetalles);
+            }
+            cargarUser();
         } catch (error) {
             console.log("error en el useEffect de carritoContext");
             
@@ -32,7 +32,7 @@ export const CarritoProvider = ({ children }: { children: ReactNode }) => {
 
     const addDetalle = async (detalle : DetalleCarritoCreateDto) : Promise<void> =>{
         try {
-            detalle.CarritoId = Number(carrito?.Id)
+            detalle.carritoId = Number(carrito?.id)
             await detalleCarritoService.create(detalle);
         } catch (error) {
             console.log("No se pudo crear el detalle del carritoo");

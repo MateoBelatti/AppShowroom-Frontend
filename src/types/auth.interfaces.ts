@@ -1,9 +1,10 @@
 export interface LoginDto {
-    Email : string;
-    Password: string;
+    email : string;
+    password: string;
 }
 
 export type JwtPayload = {
+    nombre : string;
     id: string;
     rol: string
 };

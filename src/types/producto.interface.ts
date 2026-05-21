@@ -1,33 +1,33 @@
 import type { CategoriaDto } from "./categoria.interfaces";
 
 export interface ProductoDto {
-    Id: number;
-    Nombre: string;
-    Descripcion: string;
-    Precio: number;
-    Imagen: string;
-    Stock : number;
-    Activo : boolean;
-    Tipo : number;
-    Categoria: CategoriaDto[];
+    id: number;
+    nombre: string;
+    descripcion: string;
+    precio: number;
+    imagen: string;
+    stock : number;
+    activo : boolean;
+    tipo : number;
+    categorias: CategoriaDto[];
 }
 export interface ProductoCreateDto {
-    Nombre: string;
-    Descripcion: string;
-    Precio: number;
-    Activo: boolean;
-    Tipo: number;
-    Stock: number;
-    Imagen: string;
-    CategoriasId: number[];
+    nombre: string;
+    descripcion: string;
+    precio: number;
+    activo: boolean;
+    tipo: number;
+    stock: number;
+    imagen: string;
+    categoriasId: number[];
 }
 export interface ProductoUpdateDto {
-    Nombre: string;
-    Descripcion: string;
-    Precio: number;
-    Imagen: string;
-    Stock : number;
-    Activo : Boolean;
-    Tipo : number;
-    CategoriasId: number[];
+    nombre: string;
+    descripcion: string;
+    precio: number;
+    imagen: string;
+    stock : number;
+    activo : boolean;
+    tipo : number;
+    categoriasId: number[];
 }

@@ -4,14 +4,14 @@ export interface CarritoCreateDto {
     idUsuario: number;
 }
 export interface CarritoDto {
-    Id: number;
-    UsuarioId: number;
-    FechaCreacion: Date;
-    UltimaVez: Date;
-    Detalles: DetalleCarritoDto[];
+    id: number;
+    usuarioId: number;
+    fechaCreacion: Date;
+    ultimaVez: Date;
+    detalles: DetalleCarritoDto[];
 }
 export interface CarritoUpdateDto {
-    Detalles: DetalleCarritoDto[];
+    detalles: DetalleCarritoDto[];
 }
 
 export interface ICarritoContext{

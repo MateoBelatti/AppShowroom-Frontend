@@ -3,7 +3,7 @@ import axios from 'axios';
 // 1. Creamos la instancia base
 const apiClient = axios.create({
   // Usamos la variable de entorno de Vite. Si no existe, usa un localhost por defecto.
-  baseURL: import.meta.env.VITE_API_URL || 'http://localhost:3000/api',
+  baseURL: import.meta.env.VITE_API_URL || 'https://localhost:7201/api',
   timeout: 10000, // Cancela la petición si tarda más de 10 segundos
   headers: {
     'Content-Type': 'application/json',

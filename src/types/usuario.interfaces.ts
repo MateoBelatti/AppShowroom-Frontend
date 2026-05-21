@@ -1,24 +1,24 @@
 export interface UsuarioCreateDto{
-    Nombre : string;
-    Email : string;
-    Password : string;
-    Direccion? : string;
-    Telefono? : string;
+    nombre : string;
+    email : string;
+    password : string;
+    direccion? : string;
+    telefono? : string;
 }
 export interface UsuarioDto{
-    Id : number;
-    Nombre : string;
-    Email : string;
-    Rol : Rol;
-    Direccion? : string;
+    id : number;
+    nombre : string;
+    email : string;
+    rol : Rol;
+    direccion? : string;
     telefono?: string;
-    UltimaConeccion? : Date;
+    ultimaConeccion? : Date;
 }
 export interface UsuarioUpdateDto{
-    Nombre : string;
-    Email : string;
-    Direccion? : string;
-    Telefono? : string;
+    nombre : string;
+    email : string;
+    direccion? : string;
+    telefono? : string;
 }
 
 type Rol = "User" | "Admin";

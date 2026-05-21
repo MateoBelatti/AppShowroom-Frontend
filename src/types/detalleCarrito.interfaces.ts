@@ -1,21 +1,21 @@
 export interface DetalleCarritoCreateDto {
-    CarritoId: number;
-    ProductoId: number;
-    Cantidad: number;
+    carritoId: number;
+    productoId: number;
+    cantidad: number;
 }
 
 export interface DetalleCarritoDto {
-    Id: number;
-    CarritoId: number;
-    ProductoId: number;
-    NombreProducto: string;
-    ImagenProducto: string;
-    PrecioUnitario: number;
-    Cantidad: number;
-    Subtotal: number;
+    id: number;
+    carritoId: number;
+    productoId: number;
+    nombreProducto: string;
+    imagenProducto: string;
+    precioUnitario: number;
+    cantidad: number;
+    subtotal: number;
 }
 
 export interface DetalleCarritoUpdateDto {
-    Id: number;
-    Cantidad: number;
+    id: number;
+    cantidad: number;
 }
