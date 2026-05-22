@@ -1,47 +1,40 @@
-import { Link } from "react-router-dom"; // Importamos Link
-import "./footer.css"; 
+import { Link } from "react-router-dom";
+import "./footer.css";
 
 const Footer = () => {
     return (
-        <footer className="footer pt-5 pb-4">
-            <div className="container-fluid px-5">
-                <div className="row justify-content-between g-0">
-                    {/* Sección de Marca */}
-                    <div className="col-md-4 mb-5 mb-md-0">
-                        <h5 className="footer-brand mb-4">CANELA ARTESANIAS</h5>
-                        <p className="footer-description">
-                            Artesanías y objetos de decoración. Piezas únicas creadas con materiales excepcionales para espacios que inspiran.
-                        </p>
-                    </div>
-
-                    {/* Sección de Navegación */}
-                    <div className="col-md-2 mb-5 mb-md-0">
-                        <h6 className="footer-section-title mb-4">NAVEGACIÓN</h6>
-                        <ul className="list-unstyled footer-links">
-                            <li><Link to="/">Inicio</Link></li>
-                            <li><Link to="/producto">Productos</Link></li>
-                            <li><Link to="/contacto">Contacto</Link></li>
-                        </ul>
-                    </div>
-
-                    {/* Sección de Contacto */}
-                    <div className="col-md-3">
-                        <h6 className="footer-section-title mb-4">CONTACTO</h6>
-                        <ul className="list-unstyled footer-contact">
-                            <li>hola@canelaartesanías.com</li>
-                            <li>+54 291 123 4567</li> {/* Cambiado a formato local */}
-                            <li>Bahía Blanca, Argentina</li>
-                        </ul>
-                    </div>
+        <footer className="footer-minimal">
+            <div className="footer-container">
+                
+                {/* 1. MARCA Y LOGO */}
+                <div className="footer-brand-section">
+                    <img src="https://res.cloudinary.com/diixxzm7s/image/upload/v1779406115/logo_vi9qwc.png"
+                        alt="Logo Canela Artesanias"
+                        className="footer-logo" />
+                    {/* <img src="TU_URL_AQUI" alt="Logo Canela Artesanías" className="footer-logo" /> 
+                    */}
+                    <h2 className="footer-brand-name">CANELA ARTESANÍAS</h2>
                 </div>
 
-                <hr className="footer-divider my-5" />
+                {/* 2. DESCRIPCIÓN CENTRAL */}
+                <p className="footer-description-center">
+                    Estamos comprometidos con el diseño y el bienestar. Ofrecemos las 
+                    mejores artesanías y objetos de decoración elaborados a mano para tu hogar.
+                </p>
 
-                <div className="footer-bottom text-center">
-                    <p className="mb-0">
-                        © 2026 Canela Artesanías. Todos los derechos reservados.
-                    </p>
+                {/* 3. ENLACES LEGALES */}
+                <div className="footer-links-inline">
+                    <Link to="/terminos">Términos y condiciones</Link>
+                    <span className="dot-separator">·</span>
+                    <Link to="/privacidad">Política de privacidad</Link>
                 </div>
+
+                {/* 4. COPYRIGHT Y DESARROLLADOR */}
+                <div className="footer-credits">
+                    <p>© 2026 Canela Artesanías. Todos los derechos reservados.</p>
+                    <p>Desarrollado por <span className="dev-name">Swer17</span></p>
+                </div>
+
             </div>
         </footer>
     );

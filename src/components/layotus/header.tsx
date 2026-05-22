@@ -1,99 +1,130 @@
-import React from "react";
-import "./header.css"
+import React, { useState } from "react";
+import "./header.css";
 import { CiShoppingCart, CiUser } from "react-icons/ci"; 
 import { Link, useNavigate } from "react-router-dom";
-import { useState } from "react";
 import { useAuth } from "../../hooks/useAuth.hook";
 import { useCarrito } from "../../hooks/useCarrito.hook";
-
+import Login from "../login/login"; // Asegúrate de que la ruta coincida exacto con tus carpetas
+import { User } from "lucide-react";
 
 const Header: React.FC = () => {
-    const [ openBurbuja, setOpenBurbuja ] = useState(false);
+    const [openBurbuja, setOpenBurbuja] = useState(false);
+    const [isMenuOpen, setIsMenuOpen] = useState(false);
+    const [isLoginModalOpen, setIsLoginModalOpen] = useState(false);
 
     const auth = useAuth();
     const carrito = useCarrito();
     const navigate = useNavigate();
 
-    const handleOpenPerfil = ( ) => {
+    const handleOpenPerfil = () => {
         if (auth.user?.rol === 'Admin') {
             navigate("/admin");
         } else {
             navigate("/perfil");
         }
         setOpenBurbuja(false);
-    }
-    const handleButton = () => {
-        if (auth.user) {
-            setOpenBurbuja(!openBurbuja);
-            return
-        } else {
-            navigate("/login")
-        }
-    }
+    };
 
+    const handleButton = () => {
+        console.log("Estamos en el handle buttom");
+        console.log(auth.user?.nombre);
+        
+        
+        if (auth.user?.nombre) {
+            setOpenBurbuja(!openBurbuja);
+        } else {
+            console.log("Deberia abrir el modal el puto este");
+            
+            // Mejor seteamos a "true" directo para evitar bugs de doble click
+            setIsLoginModalOpen(true);
+        }
+    };
+
+    // Función para cerrar el menú móvil al hacer click en un enlace
+    const closeMobileMenu = () => setIsMenuOpen(false);
 
     return (
-        <header className="header py-3">
-            <div className="container d-flex flex-wrap align-items-center justify-content-between">
+        <>
+            <header className="header">
+                <div className="container">
 
-                {/* Logo */}
-                <div className="logo">
-                    <h1 className="m-0" >CANELA ARTESANIAS</h1>
-                </div>
+                    {/* Botón Hamburguesa (Solo visible en móvil) */}
+                    <button 
+                        className="mobile-menu-btn" 
+                        onClick={() => setIsMenuOpen(!isMenuOpen)}
+                        aria-label="Abrir menú"
+                    >
+                        {isMenuOpen ? (
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                                <line x1="18" y1="6" x2="6" y2="18"></line>
+                                <line x1="6" y1="6" x2="18" y2="18"></line>
+                            </svg>
+                        ) : (
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                                <line x1="3" y1="12" x2="21" y2="12"></line>
+                                <line x1="3" y1="6" x2="21" y2="6"></line>
+                                <line x1="3" y1="18" x2="21" y2="18"></line>
+                            </svg>
+                        )}
+                    </button>
 
-                {/* Navegación */}
-                <nav className="main-nav">
-                <ul className="nav-list">
-                    <li><Link to="/">INICIO</Link></li>
-                    <li><Link to="/producto">PRODUCTOS</Link></li>
-                    <li><Link to="/contacto">CONTACTO</Link></li>
-                </ul>
-                </nav>
+                    {/* Logo */}
+                    <div className="logo">
+                        <h1 className="m-0">CANELA ARTESANIAS</h1>
+                    </div>
 
-                {/* Iconos derecha */}
-                <div className="icons-container">
+                    {/* Navegación */}
+                    <nav className={`main-nav ${isMenuOpen ? "open" : ""}`}>
+                        <ul className="nav-list">
+                            <li><Link to="/" onClick={closeMobileMenu}>INICIO</Link></li>
+                            <li><Link to="/producto" onClick={closeMobileMenu}>PRODUCTOS</Link></li>
+                            <li><Link to="/contacto" onClick={closeMobileMenu}>CONTACTO</Link></li>
+                        </ul>
+                    </nav>
 
-                    {/* Usuario */}
-                    <div className="user-wrapper">
-                        <button onClick={handleButton} className="icon-button">
-                            <CiUser color="#8f7889be" size={24} />
-                        </button>
+                    {/* Iconos derecha (Usuario y Carrito) */}
+                    <div className="icons-container">
+                        
+                        {/* Usuario */}
+                        <div className="user-wrapper">
+                            <button onClick={handleButton} className="icon-button">
+                                <CiUser color="#8f7889be" size={24} />
+                            </button>
 
-                        {auth.user?.nombre && openBurbuja && (
-                            <>
-                            <div className="overlay" onClick={handleButton}></div>
+                            {auth.user?.nombre && openBurbuja && (
+                                <>
+                                    <div className="overlay" onClick={handleButton}></div>
+                                    <div className="user-bubble">
+                                        <p className="user-name">Hola, {auth.user.nombre}</p>
+                                        <button className="perfil-btn" onClick={handleOpenPerfil}>
+                                            Ir a mi perfil
+                                        </button>
+                                    </div>
+                                </>
+                            )}
+                        </div>
 
-                            <div className="user-bubble">
-                                <p className="user-name">Hola, {auth.user.nombre}</p>
-
-                                <button
-                                className="perfil-btn"
-                                onClick={handleOpenPerfil}
-                                >
-                                Ir a mi perfil
-                                </button>
-                            </div>
-                            </>
+                        {/* Carrito */}
+                        {auth.user?.nombre && carrito && auth.user?.rol !== "Admin" && (
+                            <Link to="/carrito" className="cart-wrapper">
+                                <CiShoppingCart size={28} color="#8f7889be" />
+                                {carrito.detalles.length > 0 &&(
+                                    <span className="cart-badge">
+                                        {carrito.detalles.length}
+                                    </span>
+                                )}
+                            </Link>
                         )}
                     </div>
 
-                    {/* Carrito */}
-                    {auth.user?.nombre && carrito && auth.user?.rol !== "Admin" && (
-                        <a href="/carrito" className="cart-wrapper">
-                        <CiShoppingCart size={28} color="#8f7889be" />
-
-                        {carrito.detalles.length > 0 &&(
-                            <span className="cart-badge">
-                            {carrito.detalles.length}
-                            </span>
-                        )}
-                        </a>
-                    )}
-
                 </div>
-
-            </div>
             </header>
+
+            {/* Modal de Login renderizado por encima del contenido */}
+            {isLoginModalOpen && (
+                <Login onClose={() => setIsLoginModalOpen(false)} />
+            )}
+        </>
     );
 };
 

@@ -1,98 +1,92 @@
 /* =========================================
-   VARIABLES ESPECÍFICAS DEL HEADER
-   ========================================= */
-:root {
-  --header-bg: #ffffff; 
-  --header-shadow: rgba(184, 142, 158, 0.15); 
-  
-  --pink-pastel: #f4cdd8; 
-  --pink-hover: #e6aeba; 
-  --pink-badge: #d48b9f; 
-  
-  --radius-pill: 50px; 
-  --radius-box: 16px; 
-  --transition: 0.3s ease-in-out;
-}
-
-/* =========================================
-   CONTENEDOR PRINCIPAL
+   HEADER — Ancho completo y transparente
    ========================================= */
 .header {
   width: 100%;
-  padding: 20px; 
-  background-color: transparent;
-  display: flex;
-  justify-content: center; /* Centra la "píldora" en la pantalla */
+  /* Fondo casi blanco (o usa tu variable --bg) al 85% para dejar ver el fondo */
+  background-color: rgba(255, 255, 255, 0.75);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-bottom: 1px solid rgba(229, 228, 231, 0.6);
   position: sticky;
   top: 0;
-  z-index: 50; /* Asegura que flote sobre el resto del contenido */
+  z-index: 50;
+  transition: all var(--transition);
 }
 
-/* La "Píldora" */
 .header .container {
-  background-color: var(--header-bg);
-  border-radius: var(--radius-pill);
-  padding: 12px 30px; 
-  box-shadow: 0 8px 24px var(--header-shadow);
-  max-width: 1100px;
-  width: 100%;
-  
-  /* Flexbox para distribuir Logo - Nav - Iconos */
   display: flex;
   align-items: center;
-  justify-content: space-between; 
+  justify-content: space-between;
+  padding: 12px 15px;
+  max-width: 1200px;
+  margin: 0 auto;
+  width: 100%;
 }
 
 /* =========================================
    LOGO
    ========================================= */
+.logo {
+  flex-shrink: 0;
+  z-index: 60; /* Para que quede por encima del menú móvil */
+}
+
 .logo h1 {
+  font-family: var(--heading);
   font-size: 1.1rem;
   font-weight: 700;
-  color: var(--text-h); /* Heredado de index.css */
-  letter-spacing: 1px;
+  color: var(--text-h);
+  letter-spacing: 2px;
   text-transform: uppercase;
-  margin: 0;
+  margin: 0 !important;
+  white-space: nowrap;
+  line-height: 1;
 }
 
 /* =========================================
-   NAVEGACIÓN
+   NAVEGACIÓN (Escritorio)
    ========================================= */
 .main-nav {
-    display: flex;
-    align-items: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex: 1;
 }
 
-.main-nav .nav-list {
+.nav-list {
   display: flex;
   list-style: none;
   padding: 0;
   margin: 0;
-  gap: 30px; 
+  gap: 28px;
 }
 
 .main-nav a {
   text-decoration: none;
-  color: var(--text); /* Heredado de index.css */
-  font-size: 0.95rem;
+  color: var(--text);
+  font-size: 0.8rem;
   font-weight: 500;
+  letter-spacing: 0.8px;
+  text-transform: uppercase;
+  white-space: nowrap;
   position: relative;
-  transition: color var(--transition);
+  transition: color 0.3s ease;
 }
 
 .main-nav a:hover {
-  color: var(--pink-hover);
+  color: var(--pink-deep);
 }
 
 .main-nav a::after {
   content: '';
   position: absolute;
   width: 0;
-  height: 2px;
+  height: 1.5px;
   bottom: -4px;
   left: 50%;
   background-color: var(--pink-hover);
-  transition: all var(--transition);
+  transition: all 0.3s ease;
   transform: translateX(-50%);
 }
 
@@ -101,15 +95,19 @@
 }
 
 /* =========================================
-   ICONOS Y CARRITO
+   ICONOS, CARRITO Y BURBUJA
    ========================================= */
 .icons-container {
   display: flex;
   align-items: center;
-  gap: 15px;
+  gap: 8px;
+  flex-shrink: 0;
+  z-index: 60;
 }
 
-.icon-button, .cart-wrapper {
+.icon-button,
+.cart-wrapper,
+.mobile-menu-btn {
   background: transparent;
   border: none;
   cursor: pointer;
@@ -118,8 +116,8 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  transition: background-color var(--transition);
-  color: var(--text);
+  transition: background-color 0.3s ease, transform 0.3s ease;
+  color: var(--text-h);
   text-decoration: none;
 }
 
@@ -128,85 +126,99 @@
 }
 
 .icon-button:hover,
-.cart-wrapper:hover {
-  background-color: var(--pink-pastel);
+.cart-wrapper:hover,
+.mobile-menu-btn:hover {
+  background-color: var(--pink-light);
+  transform: scale(1.05);
 }
 
 .cart-badge {
   position: absolute;
-  top: 0;
-  right: 0;
+  top: 2px;
+  right: 2px;
   background-color: var(--pink-badge);
   color: white;
-  font-size: 0.7rem;
-  font-weight: bold;
-  width: 18px;
-  height: 18px;
+  font-size: 0.6rem;
+  font-weight: 700;
+  width: 16px;
+  height: 16px;
   display: flex;
   align-items: center;
   justify-content: center;
   border-radius: 50%;
-  transform: translate(10%, -10%);
+  border: 1.5px solid #fff;
+}
+
+/* Burbuja de usuario (Se mantiene igual) */
+.user-wrapper { position: relative; }
+.overlay { position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; z-index: 90; }
+.user-bubble {
+  position: absolute; top: calc(100% + 12px); right: 0;
+  background-color: #ffffff; border-radius: 12px; padding: 16px;
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.12); z-index: 100;
+  min-width: 190px; display: flex; flex-direction: column;
+  gap: 12px; text-align: center; border: 1px solid var(--border);
+  animation: fadeInBubble 0.18s ease-out;
+}
+.user-name { margin: 0; color: var(--text-h); font-weight: 600; font-size: 0.9rem; }
+.perfil-btn {
+  background-color: var(--pink-pastel); color: var(--text-h); border: none;
+  padding: 9px 18px; border-radius: 20px; cursor: pointer; font-weight: 500;
+  font-size: 0.85rem; transition: all 0.3s ease;
+}
+.perfil-btn:hover { background-color: var(--pink-hover); color: #fff; }
+
+@keyframes fadeInBubble {
+  from { opacity: 0; transform: translateY(-6px); }
+  to   { opacity: 1; transform: translateY(0); }
 }
 
 /* =========================================
-   BURBUJA DE USUARIO
+    BOTÓN HAMBURGUESA (Oculto en escritorio)
    ========================================= */
-.user-wrapper {
-  position: relative;
+.mobile-menu-btn {
+  display: none;
 }
 
-.overlay {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100vw;
-  height: 100vh;
-  z-index: 90;
-}
+/* =========================================
+    RESPONSIVE (Menú móvil)
+   ========================================= */
+@media (max-width: 767px) {
+  .mobile-menu-btn {
+    display: flex;
+  }
 
-.user-bubble {
-  position: absolute;
-  top: 140%;
-  right: 0;
-  background-color: var(--header-bg);
-  border-radius: var(--radius-box);
-  padding: 15px;
-  box-shadow: 0 10px 30px var(--header-shadow);
-  z-index: 100;
-  min-width: 180px;
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
-  text-align: center;
-  border: 1px solid var(--border);
-  animation: fadeIn 0.2s ease-out;
-}
+  .logo h1 { font-size: 1rem; }
 
-.user-name {
-  margin: 0;
-  color: var(--text-h);
-  font-weight: 600;
-  font-size: 1rem;
-}
+  /* Transformar la navegación en un menú desplegable */
+  .main-nav {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    width: 100%;
+    background-color: rgba(255, 255, 255, 0.98);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid rgba(229, 228, 231, 0.6);
+    flex-direction: column;
+    padding: 20px 0;
+    box-shadow: 0 10px 15px rgba(0,0,0,0.05);
+    clip-path: polygon(0 0, 100% 0, 100% 0, 0 0);
+    opacity: 0;
+    transition: all 0.3s ease-in-out;
+  }
 
-.perfil-btn {
-  background-color: var(--pink-pastel);
-  color: var(--text-h);
-  border: none;
-  padding: 8px 16px;
-  border-radius: 20px;
-  cursor: pointer;
-  font-weight: 500;
-  transition: all var(--transition);
-}
+  .main-nav.open {
+    clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
+    opacity: 1;
+  }
 
-.perfil-btn:hover {
-  background-color: var(--pink-hover);
-  color: #fff;
-}
+  .nav-list {
+    flex-direction: column;
+    gap: 20px;
+    align-items: center;
+  }
 
-@keyframes fadeIn {
-  from { opacity: 0; transform: translateY(-10px); }
-  to { opacity: 1; transform: translateY(0); }
+  .main-nav a {
+    font-size: 1rem;
+  }
 }
