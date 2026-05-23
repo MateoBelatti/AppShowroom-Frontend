@@ -1,0 +1,70 @@
+.page-container {
+  background-color: #f9f9f9;
+  min-height: 100vh;
+  padding: 1rem 1.5rem 2rem 1.5rem; 
+}
+
+.store-layout {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  max-width: 1300px;
+  margin: 0 auto;
+}
+
+.product-grid {
+  display: grid;
+  grid-template-columns: repeat(1, 1fr);
+  gap: 1.5rem;
+}
+
+.product-wrapper {
+  display: flex;
+  justify-content: center;
+}
+
+/* ======== Media Queries para Desktop ======== */
+@media (min-width: 768px) {
+  .store-layout {
+    flex-direction: row; 
+    align-items: flex-start; 
+  }
+
+  .store-sidebar {
+    flex: 0 0 250px; 
+    position: sticky;
+    top: 2rem; 
+  }
+
+  .store-main {
+    flex: 1; 
+    min-width: 0; 
+  }
+
+  .product-grid {
+    grid-template-columns: repeat(2, 1fr); 
+  }
+}
+
+@media (min-width: 1024px) {
+  .product-grid {
+    grid-template-columns: repeat(3, 1fr); 
+  }
+}
+
+/* ======== ESTILOS DEL BANNER ======== */
+.store-banner {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  margin-bottom: 0;
+  background-color: #fff;
+}
+
+.banner-image {
+  width: 100%;
+  max-width: none; 
+  height: auto;
+  max-height: 350px; 
+  object-fit: cover; 
+}
