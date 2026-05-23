@@ -1,0 +1,202 @@
+/* =========================================
+   OVERLAY Y CONTENEDOR PRINCIPAL
+   ========================================= */
+.login-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.6);
+  -webkit-backdrop-filter: blur(10px);
+  backdrop-filter: blur(10px);
+  z-index: 1050; 
+  padding: 20px;
+  animation: fadeInOverlay 0.3s ease-out;
+}
+
+.login-modal-container {
+  background-color: #0f1013;
+  width: 100%;
+  max-width: 900px;
+  min-height: 500px;
+  border-radius: 28px;
+  overflow: hidden;
+  box-shadow: 0 24px 60px rgba(0, 0, 0, 0.4);
+  border: 1px solid rgba(255, 255, 255, 0.04);
+}
+
+.close-modal-btn {
+  top: 15px;
+  right: 20px;
+  background: transparent;
+  border: none;
+  color: rgba(255, 255, 255, 0.5);
+  font-size: 2rem;
+  cursor: pointer;
+  z-index: 10;
+  line-height: 1;
+  transition: color 0.2s ease;
+}
+
+.close-modal-btn:hover {
+  color: white;
+}
+
+/* =========================================
+   TEXTOS Y BOTONES (Izquierda)
+   ========================================= */
+.login-title {
+  font-weight: 700;
+  font-size: 2.8rem;
+  letter-spacing: -1px;
+}
+
+.login-subtitle {
+  font-size: 1.1rem;
+  color: #a0a0b0;
+}
+
+.login-sub-text {
+  font-size: 0.9rem;
+  color: #6a6a7a;
+}
+
+.btn-google-login {
+  background-color: transparent;
+  border: 1px solid #3a3b40;
+  color: #b0b0c0;
+  border-radius: 14px;
+  padding: 12px 20px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  width: fit-content;
+}
+
+.btn-google-login:hover {
+  background-color: rgba(255, 255, 255, 0.05);
+  border-color: #505156;
+  color: white;
+}
+
+.signup-prompt {
+  font-size: 0.9rem;
+  color: #6a6a7a;
+}
+
+.toggle-mode-link {
+  color: white;
+  font-weight: 600;
+  cursor: pointer;
+  text-decoration: none;
+  transition: opacity 0.2s;
+}
+
+.toggle-mode-link:hover {
+  text-decoration: underline;
+}
+
+/* =========================================
+   SELECTOR Y FORMULARIO (Derecha)
+   ========================================= */
+.embedded-form-card {
+  background-color: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  border-radius: 20px;
+  padding: 30px 25px;
+}
+
+.mode-selector {
+  background-color: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  border-radius: 12px;
+  padding: 4px;
+}
+
+.selector-btn {
+  background: transparent;
+  border: none;
+  color: #6a6a7a;
+  padding: 10px;
+  border-radius: 8px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-size: 0.9rem;
+}
+
+.selector-btn.active {
+  background-color: rgba(255, 255, 255, 0.1);
+  color: white;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+}
+
+.dark-input {
+  background-color: rgba(255, 255, 255, 0.05) !important;
+  border: 1px solid rgba(255, 255, 255, 0.1) !important;
+  color: white !important;
+  border-radius: 12px;
+  padding: 12px 14px;
+  font-size: 0.85rem;
+}
+
+.dark-input::placeholder {
+  color: #6a6a7a;
+}
+
+.dark-input:focus {
+  border-color: rgba(140, 130, 190, 0.5) !important;
+  box-shadow: 0 0 10px rgba(140, 130, 190, 0.1) !important;
+}
+
+.form-group label {
+  color: rgba(255, 255, 255, 0.7);
+  font-size: 0.85rem;
+  margin-bottom: 8px;
+  display: block;
+}
+
+.btn-lavender-login {
+  background-color:var(--pink-pastel);
+  color: #0f1013;
+  border: none;
+  border-radius: 14px;
+  padding: 14px;
+  font-weight: 700;
+  width: 100%;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.btn-lavender-login:hover {
+  background-color: var(--pink-hover);
+}
+
+/* Animaciones */
+@keyframes fadeInOverlay {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+.slide-down {
+  animation: slideDown 0.3s ease-out;
+}
+
+@keyframes slideDown {
+  from { opacity: 0; transform: translateY(-5px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* Responsive */
+@media (max-width: 991px) {
+  .login-modal-container {
+    max-width: 500px;
+  }
+  .login-title {
+    font-size: 2rem;
+  }
+}
