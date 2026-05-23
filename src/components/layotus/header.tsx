@@ -25,15 +25,10 @@ const Header: React.FC = () => {
     };
 
     const handleButton = () => {
-        console.log("Estamos en el handle buttom");
         console.log(auth.user?.nombre);
-        
-        
         if (auth.user?.nombre) {
             setOpenBurbuja(!openBurbuja);
         } else {
-            console.log("Deberia abrir el modal el puto este");
-            
             setIsLoginModalOpen(true);
         }
     };
