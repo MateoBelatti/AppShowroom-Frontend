@@ -4,8 +4,7 @@ import { CiShoppingCart, CiUser } from "react-icons/ci";
 import { Link, useNavigate } from "react-router-dom";
 import { useAuth } from "../../hooks/useAuth.hook";
 import { useCarrito } from "../../hooks/useCarrito.hook";
-import Login from "../login/login"; // Asegúrate de que la ruta coincida exacto con tus carpetas
-import { User } from "lucide-react";
+import AuthModal from "../login/authModal";
 
 const Header: React.FC = () => {
     const [openBurbuja, setOpenBurbuja] = useState(false);
@@ -35,12 +34,10 @@ const Header: React.FC = () => {
         } else {
             console.log("Deberia abrir el modal el puto este");
             
-            // Mejor seteamos a "true" directo para evitar bugs de doble click
             setIsLoginModalOpen(true);
         }
     };
 
-    // Función para cerrar el menú móvil al hacer click en un enlace
     const closeMobileMenu = () => setIsMenuOpen(false);
 
     return (
@@ -82,7 +79,7 @@ const Header: React.FC = () => {
                         </ul>
                     </nav>
 
-                    {/* Iconos derecha (Usuario y Carrito) */}
+                    {/* Iconos derecha */}
                     <div className="icons-container">
                         
                         {/* Usuario */}
@@ -120,9 +117,9 @@ const Header: React.FC = () => {
                 </div>
             </header>
 
-            {/* Modal de Login renderizado por encima del contenido */}
+            {/* Modal de Login */}
             {isLoginModalOpen && (
-                <Login onClose={() => setIsLoginModalOpen(false)} />
+                <AuthModal onClose={() => setIsLoginModalOpen(false)} />
             )}
         </>
     );
