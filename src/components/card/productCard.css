@@ -210,6 +210,13 @@
 .btn-card-accent:active {
   transform: scale(0.97);
 }
+.btn-card-accent:focus {
+  outline: none; /* Elimina el recuadro por defecto al hacer clic */
+}
+.btn-card-accent:focus-visible {
+  outline: 2px solid var(--pink-deep);
+  outline-offset: 2px;
+}
 
 /* =========================================
     RESPONSIVE PARA LA CARD

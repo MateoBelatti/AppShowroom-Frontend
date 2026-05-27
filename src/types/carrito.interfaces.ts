@@ -1,7 +1,7 @@
-import type { DetalleCarritoCreateDto, DetalleCarritoDto } from "./detalleCarrito.interfaces";
+import type { DetalleCarritoCreateDto, DetalleCarritoDto, DetalleCarritoUpdateDto } from "./detalleCarrito.interfaces";
 
 export interface CarritoCreateDto {
-    idUsuario: number;
+    UsuarioId: number;
 }
 export interface CarritoDto {
     id: number;
@@ -19,4 +19,6 @@ export interface ICarritoContext{
     detalles : DetalleCarritoDto[],
     addDetalle : (detalle : DetalleCarritoCreateDto) => Promise<void>;
     removeDetalle : (idDetalle : number) => Promise<void>;
+    refreshDetalles: () => Promise<void>;
+    updateDetalle : (detalle : DetalleCarritoUpdateDto) => Promise<void>;
 }

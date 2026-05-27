@@ -1,15 +1,17 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import "./header.css";
 import { CiShoppingCart, CiUser } from "react-icons/ci"; 
 import { Link, useNavigate } from "react-router-dom";
 import { useAuth } from "../../hooks/useAuth.hook";
 import { useCarrito } from "../../hooks/useCarrito.hook";
 import AuthModal from "../login/authModal";
+import CarritoModal from "../card/carritoModal";
 
 const Header: React.FC = () => {
     const [openBurbuja, setOpenBurbuja] = useState(false);
     const [isMenuOpen, setIsMenuOpen] = useState(false);
     const [isLoginModalOpen, setIsLoginModalOpen] = useState(false);
+    const [isCarritoOpen, setIsCarritoOpen] = useState(false);
 
     const auth = useAuth();
     const carrito = useCarrito();
@@ -19,13 +21,13 @@ const Header: React.FC = () => {
         if (auth.user?.rol === 'Admin') {
             navigate("/admin");
         } else {
+            auth.logout();
             navigate("/perfil");
         }
         setOpenBurbuja(false);
     };
 
     const handleButton = () => {
-        console.log(auth.user?.nombre);
         if (auth.user?.nombre) {
             setOpenBurbuja(!openBurbuja);
         } else {
@@ -34,6 +36,10 @@ const Header: React.FC = () => {
     };
 
     const closeMobileMenu = () => setIsMenuOpen(false);
+
+    useEffect(()=>{
+
+    }, [carrito.addDetalle])
 
     return (
         <>
@@ -91,6 +97,9 @@ const Header: React.FC = () => {
                                         <button className="perfil-btn" onClick={handleOpenPerfil}>
                                             Ir a mi perfil
                                         </button>
+                                        <button className="perfil-btn" onClick={auth.logout}>
+                                            Cerrar Sesion
+                                        </button>
                                     </div>
                                 </>
                             )}
@@ -98,14 +107,18 @@ const Header: React.FC = () => {
 
                         {/* Carrito */}
                         {auth.user?.nombre && carrito && auth.user?.rol !== "Admin" && (
-                            <Link to="/carrito" className="cart-wrapper">
+                            <button
+                                className="cart-wrapper"
+                                onClick={() => setIsCarritoOpen(true)}
+                                aria-label="Abrir carrito"
+                            >
                                 <CiShoppingCart size={28} color="#8f7889be" />
-                                {carrito.detalles.length > 0 &&(
+                                {carrito.detalles.length > 0 && (
                                     <span className="cart-badge">
                                         {carrito.detalles.length}
                                     </span>
                                 )}
-                            </Link>
+                            </button>
                         )}
                     </div>
 
@@ -115,6 +128,10 @@ const Header: React.FC = () => {
             {/* Modal de Login */}
             {isLoginModalOpen && (
                 <AuthModal onClose={() => setIsLoginModalOpen(false)} />
+            )}
+            {/* Modal de Carrito */}
+            {isCarritoOpen && (
+                <CarritoModal onClose={() => setIsCarritoOpen(!isCarritoOpen)} />
             )}
         </>
     );

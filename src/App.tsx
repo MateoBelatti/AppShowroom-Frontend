@@ -4,6 +4,7 @@ import Footer from './components/layotus/footer';
 import { HomePage } from './pages/homePage';
 import ContactPage from './pages/contactoPage';
 import ProductPage from './pages/productPage';
+import AdminPage from './pages/adminPage';
 
 function App() {
   return (
@@ -14,6 +15,7 @@ function App() {
           <Route path='/' element={<HomePage />} />
           <Route path='/contacto' element={<ContactPage />} />
           <Route path='/producto' element={<ProductPage />} />
+          <Route path='/admin' element={<AdminPage />} />
         </Routes>
       </main>
       <Footer />

@@ -4,10 +4,12 @@ import { type ProductoDto } from "../../types/producto.interface";
 import { useCarrito } from "../../hooks/useCarrito.hook";
 
 import "./productCard.css";
+import { useAuth } from "../../hooks/useAuth.hook";
 
 export function ProductCard({ id, nombre, descripcion, precio, imagen, stock, activo, tipo, categorias }: ProductoDto) {
     const carrito = useCarrito();
     const [cantidad, setCantidad] = useState<number>(1);
+    const auth = useAuth();
 
     const handleIncrement = () => {
         if (cantidad < stock) setCantidad(cantidad + 1);
@@ -19,15 +21,20 @@ export function ProductCard({ id, nombre, descripcion, precio, imagen, stock, ac
 
     const handleAddCarrito = () => {
         if (cantidad > stock || cantidad < 1 || stock === 0) return;
-        if (typeof carrito.carrito?.id !== "number") return;
 
         try {
+            if (auth.user?.id == undefined) return;
+            console.log("Creando detalle");
+            
             carrito.addDetalle({
-                carritoId: carrito.carrito.id,
+                usuarioId : Number(auth.user?.id),
+                carritoId: Number(carrito.carrito?.id),
                 productoId: id,
                 cantidad: cantidad,
             });
             setCantidad(1);
+            console.log("Detalle creado");
+            carrito.refreshDetalles();
         } catch (error) {
             console.error("Error al añadir producto al carrito", error);
         }

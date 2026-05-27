@@ -21,8 +21,9 @@ export const detalleCarritoService = {
     },
 
     // PUT: /api/detalleCarrito/{id}
-    update: async (id: number, dataDto: DetalleCarritoUpdateDto): Promise<DetalleCarritoDto> => {
-        const response = await apiClient.put<DetalleCarritoDto>(`${API_URL}/${id}`, dataDto);
+    update: async (dataDto: DetalleCarritoUpdateDto): Promise<DetalleCarritoDto> => {
+        const response = await apiClient.put<DetalleCarritoDto>(`${API_URL}`, dataDto);
+        console.log(response);
         return response.data;
     },
 
