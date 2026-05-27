@@ -14,9 +14,7 @@ const LoginForm: React.FC<LoginFormProps> = ({onClose}) => {
     const [ loadingSuccess, setLoadingSucces] = useState<boolean>(false);
     const auth = useAuth();
 
-    const handleLoginSubmit = async (e: React.FormEvent) => {
-        console.log("BOTONCITO DE INCIIAR SESION");
-        
+    const handleLoginSubmit = async (e: React.FormEvent) => {        
         e.preventDefault();
         // verifica que esten bien los campos
         const result = loginSchema.safeParse(formData);
@@ -31,12 +29,8 @@ const LoginForm: React.FC<LoginFormProps> = ({onClose}) => {
                 email: rawErrors.email?.[0],
                 password: rawErrors.password?.[0],
             });
-            console.log("antes de cortar donde cero");
-            
         return;
-        }
-        console.log("Bien verigicado");
-        
+        }        
 
         try {
             setLoading(true);
@@ -57,8 +51,6 @@ const LoginForm: React.FC<LoginFormProps> = ({onClose}) => {
         } catch (error) {
             setLoadingSucces(false);
         } finally{
-            console.log("termino el inicio");
-            
             setLoading(false);
         }
     };

@@ -67,7 +67,7 @@ export const CarritoProvider = ({ children }: { children: ReactNode }) => {
             setCarrito(newCarrito);
             carritoIdActual = newCarrito.id;
         }
-        const productoCargado = carrito?.detalles.find( det => det.productoId == detalle.productoId);
+        const productoCargado = detalles.find( det => det.productoId == detalle.productoId);
         try {
             if (productoCargado) throw new Error("El producto ya esta en el carrito");
             detalle.carritoId = carritoIdActual;

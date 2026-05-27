@@ -1,0 +1,23 @@
+/* src/styles/adminPage.css */
+.admin-layout {
+  min-height: 100vh;
+  background-color: #f8f9fa;
+}
+
+/* Transición suave cuando cambiás de pestaña */
+.fade-in {
+  animation: admin-fade-in 0.2s ease-out;
+}
+
+@keyframes admin-fade-in {
+  from { opacity: 0; transform: translateY(4px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* Fix para que las imágenes de la tabla de productos no se deformen */
+.table-img-thumb {
+  width: 44px;
+  height: 44px;
+  object-fit: cover;
+  border-radius: 6px;
+}

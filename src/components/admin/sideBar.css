@@ -1,0 +1,19 @@
+/* src/components/admin/Sidebar.css */
+.sidebar-sticky {
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  overflow-y: auto;
+  border-right: 1px solid #dee2e6;
+  width: 260px;
+}
+
+@media (max-width: 768px) {
+  .sidebar-sticky {
+    height: auto;
+    position: relative;
+    width: 100%;
+    border-right: none;
+    border-bottom: 1px solid #dee2e6;
+  }
+}

@@ -18,8 +18,6 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
         localStorage.setItem('userId', decoded.id);
         localStorage.setItem('userRol', decoded.rol);
         }
-        console.log(user);
-        
     }, []);
 
     const login = (newToken: string) => {

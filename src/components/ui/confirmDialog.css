@@ -1,0 +1,15 @@
+/* src/components/ui/ConfirmDialog.css */
+.modal-overlay-custom {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.5); /* Oscurece el fondo */
+  backdrop-filter: blur(2px); /* Efecto difuminado moderno */
+  z-index: 1050;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+}
