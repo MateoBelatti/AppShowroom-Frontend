@@ -35,8 +35,8 @@ export const productoService = {
     },
 
     // PUT: /api/producto/{id}
-    update: async (id: number, dataDto: ProductoUpdateDto): Promise<ProductoDto> => {
-        const response = await apiClient.put<ProductoDto>(`${API_URL}/${id}`, dataDto);
+    update: async (dataDto: ProductoUpdateDto): Promise<ProductoDto> => {
+        const response = await apiClient.put<ProductoDto>(API_URL, dataDto);
         return response.data;
     },
 

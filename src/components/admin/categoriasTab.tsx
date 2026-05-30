@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
+import { useCategorias } from '../../hooks/useCategorias.hook';
 // Importa tus servicios, tipos y ConfirmDialog
 
 export const CategoriasTab: React.FC<{ notify: (msg: string, type: 'ok'|'error') => void }> = ({ notify }) => {
     const [search, setSearch] = useState('');
-    // Mock de datos para el ejemplo
-    const [categorias] = useState([{ id: 1, nombre: 'Aromaterapia' }, { id: 2, nombre: 'Decoración' }]);
+    const { categorias } = useCategorias();
 
     const catFiltradas = categorias.filter(c => c.nombre.toLowerCase().includes(search.toLowerCase()));
 

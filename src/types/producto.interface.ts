@@ -22,6 +22,7 @@ export interface ProductoCreateDto {
     categoriasId: number[];
 }
 export interface ProductoUpdateDto {
+    id : number;
     nombre: string;
     descripcion: string;
     precio: number;
@@ -29,5 +30,5 @@ export interface ProductoUpdateDto {
     stock : number;
     activo : boolean;
     tipo : number;
-    categoriasId: number[];
+    categoriasId: CategoriaDto[];
 }
