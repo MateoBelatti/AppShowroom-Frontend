@@ -27,8 +27,8 @@ export const categoriaService = {
     },
 
     // PUT: /api/categoria/{id}
-    update: async (id: number, dataDto: CategoriaUpdateDto): Promise<CategoriaDto> => {
-        const response = await apiClient.put<CategoriaDto>(`${API_URL}/${id}`, dataDto);
+    update: async (dataDto: CategoriaUpdateDto): Promise<CategoriaDto> => {
+        const response = await apiClient.put<CategoriaDto>(`${API_URL}`, dataDto);
         return response.data;
     },
 

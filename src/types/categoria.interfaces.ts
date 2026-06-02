@@ -7,4 +7,5 @@ export interface CategoriaCreateDto {
 }
 export interface CategoriaUpdateDto {
     nombre: string;
+    id : number;
 }

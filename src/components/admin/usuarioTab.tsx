@@ -1,9 +1,11 @@
 import React, { useState } from 'react';
+import { useUsuarios } from '../../hooks/useUsuario.hook';
 
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 export const UsuariosTab: React.FC<{ notify: (msg: string, type: 'ok'|'error') => void }> = ({ notify }) => {
     const [search, setSearch] = useState('');
-    // Mock de datos
-    const [usuarios] = useState([{ id: 1, nombre: 'Mateo', email: 'mateo@mail.com', rol: 'ADMIN' }]);
+    const { usuarios } = useUsuarios();
+    
 
     return (
         <div>
@@ -41,7 +43,7 @@ export const UsuariosTab: React.FC<{ notify: (msg: string, type: 'ok'|'error') =
                                     </td>
                                     <td>{u.email}</td>
                                     <td>
-                                        <span className={`badge ${u.rol === 'ADMIN' ? 'bg-dark' : 'bg-secondary'}`}>
+                                        <span className={`badge ${u.rol === "Admin" ? 'bg-dark' : 'bg-secondary'}`}>
                                             {u.rol}
                                         </span>
                                     </td>

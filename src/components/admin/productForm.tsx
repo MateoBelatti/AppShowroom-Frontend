@@ -1,13 +1,12 @@
 import React, { useState, useEffect } from 'react';
-import './productForm.css'; // Tu archivo CSS personalizado
+import './productForm.css';
 import type { ProductoCreateDto, ProductoUpdateDto } from '../../types/producto.interface';
 
 interface ProductFormProps {
     initialData?: ProductoUpdateDto | null;
     onSubmit: (data: ProductoCreateDto | ProductoUpdateDto) => void;
     onCancel: () => void;
-    // Opcional: Lista de categorías disponibles para el select múltiple
-    availableCategories?: { id: number; nombre: string }[]; 
+    availableCategories?: { id: number; nombre: string }[];
 }
 
 const defaultFormState: ProductoCreateDto = {
@@ -15,22 +14,21 @@ const defaultFormState: ProductoCreateDto = {
     descripcion: '',
     precio: 0,
     activo: true,
-    tipo: 1, // Valor por defecto
+    tipo: 1,
     stock: 0,
     imagen: '',
     categoriasId: []
 };
 
-export const ProductForm: React.FC<ProductFormProps> = ({ 
-    initialData, 
-    onSubmit, 
+export const ProductForm: React.FC<ProductFormProps> = ({
+    initialData,
+    onSubmit,
     onCancel,
-    availableCategories = [] // Por defecto vacío si no se pasan
+    availableCategories = []
 }) => {
     const [formData, setFormData] = useState<ProductoCreateDto | ProductoUpdateDto>(defaultFormState);
     const isEditMode = !!initialData;
 
-    // Sincronizar el estado si cambia la data inicial (útil para modales)
     useEffect(() => {
         if (initialData) {
             setFormData(initialData);
@@ -39,17 +37,18 @@ export const ProductForm: React.FC<ProductFormProps> = ({
         }
     }, [initialData]);
 
-    const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
+    const handleInputChange = (
+        e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>
+    ) => {
         const { name, value, type } = e.target;
-        
+
         let parsedValue: any = value;
 
-        // Manejo de tipos específicos
         if (type === 'checkbox') {
             parsedValue = (e.target as HTMLInputElement).checked;
-        } else if (type === 'number') {
-            parsedValue = value === '' ? 0 : Number(value);
         }
+        // ✅ FIX: no convertir a Number acá — dejar el string mientras escribe
+        // Se convierte al hacer submit o se maneja como string en el input
 
         setFormData(prev => ({
             ...prev,
@@ -57,17 +56,40 @@ export const ProductForm: React.FC<ProductFormProps> = ({
         }));
     };
 
-    const handleCategoryChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
-        const selectedOptions = Array.from(e.target.selectedOptions, option => Number(option.value));
+    // ✅ FIX: handlers separados para campos numéricos con inputs controlados
+    const handleNumberChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        const { name, value } = e.target;
+        // Guardar como string durante la edición para evitar el bug del "0" que no se borra
         setFormData(prev => ({
             ...prev,
-            categoriasId: selectedOptions
+            [name]: value === '' ? '' : Number(value)
         }));
+    };
+
+    // ✅ FIX: checkboxes en lugar de select múltiple
+    const handleCategoryToggle = (categoryId: number) => {
+        setFormData(prev => {
+            const current = prev.categoriasId ?? [];
+            const exists = current.includes(categoryId);
+            return {
+                ...prev,
+                categoriasId: exists
+                    ? current.filter(id => id !== categoryId)
+                    : [...current, categoryId]
+            };
+        });
     };
 
     const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault();
-        onSubmit(formData);
+        // Asegurarse de que los campos numéricos sean numbers al enviar
+        const dataToSubmit = {
+            ...formData,
+            precio: Number(formData.precio) || 0,
+            stock: Number(formData.stock) || 0,
+            tipo: Number(formData.tipo) || 1,
+        };
+        onSubmit(dataToSubmit);
     };
 
     return (
@@ -80,52 +102,143 @@ export const ProductForm: React.FC<ProductFormProps> = ({
                     <div className="row mb-3">
                         <div className="col-md-6">
                             <label htmlFor="nombre" className="form-label fw-bold">Nombre</label>
-                            <input type="text" className="form-control" id="nombre" name="nombre" value={formData.nombre} onChange={handleInputChange} required />
+                            <input
+                                type="text"
+                                className="form-control"
+                                id="nombre"
+                                name="nombre"
+                                value={formData.nombre}
+                                onChange={handleInputChange}
+                                required
+                            />
                         </div>
                         <div className="col-md-6">
                             <label htmlFor="imagen" className="form-label fw-bold">URL de la Imagen</label>
-                            <input type="text" className="form-control" id="imagen" name="imagen" value={formData.imagen} onChange={handleInputChange} />
+                            <input
+                                type="text"
+                                className="form-control"
+                                id="imagen"
+                                name="imagen"
+                                value={formData.imagen}
+                                onChange={handleInputChange}
+                            />
                         </div>
                     </div>
 
                     <div className="mb-3">
                         <label htmlFor="descripcion" className="form-label fw-bold">Descripción</label>
-                        <textarea className="form-control" id="descripcion" name="descripcion" rows={3} value={formData.descripcion} onChange={handleInputChange} required />
+                        <textarea
+                            className="form-control"
+                            id="descripcion"
+                            name="descripcion"
+                            rows={3}
+                            value={formData.descripcion}
+                            onChange={handleInputChange}
+                            required
+                        />
                     </div>
 
+                    {/* ✅ FIX: usar handleNumberChange para evitar bugs con inputs numéricos */}
                     <div className="row mb-3">
                         <div className="col-md-4">
                             <label htmlFor="precio" className="form-label fw-bold">Precio ($)</label>
-                            <input type="number" className="form-control" id="precio" name="precio" min="0" step="0.01" value={formData.precio} onChange={handleInputChange} required />
+                            <input
+                                type="number"
+                                className="form-control"
+                                id="precio"
+                                name="precio"
+                                min="0"
+                                step="0.01"
+                                value={formData.precio}
+                                onChange={handleNumberChange}
+                                required
+                            />
                         </div>
                         <div className="col-md-4">
                             <label htmlFor="stock" className="form-label fw-bold">Stock</label>
-                            <input type="number" className="form-control" id="stock" name="stock" min="0" value={formData.stock} onChange={handleInputChange} required />
+                            <input
+                                type="number"
+                                className="form-control"
+                                id="stock"
+                                name="stock"
+                                min="0"
+                                value={formData.stock}
+                                onChange={handleNumberChange}
+                                required
+                            />
                         </div>
                         <div className="col-md-4">
                             <label htmlFor="tipo" className="form-label fw-bold">Tipo</label>
-                            <input type="number" className="form-control" id="tipo" name="tipo" value={formData.tipo} onChange={handleInputChange} required />
+                            <input
+                                type="number"
+                                className="form-control"
+                                id="tipo"
+                                name="tipo"
+                                min="1"
+                                value={formData.tipo}
+                                onChange={handleNumberChange}
+                                required
+                            />
                         </div>
                     </div>
 
                     <div className="row mb-4">
+                        {/* ✅ FIX: cuadro con scroll + checkboxes en lugar de select múltiple */}
                         <div className="col-md-6">
-                            <label htmlFor="categoriasId" className="form-label fw-bold">Categorías (Múltiple)</label>
-                            <select multiple className="form-select" id="categoriasId" name="categoriasId" value={formData.categoriasId.map(String)} onChange={handleCategoryChange} size={3}>
+                            <label className="form-label fw-bold">Categorías</label>
+                            <div
+                                style={{
+                                    border: '1px solid #dee2e6',
+                                    borderRadius: '6px',
+                                    height: '140px',
+                                    overflowY: 'auto',
+                                    padding: '8px',
+                                    backgroundColor: '#fff'
+                                }}
+                            >
                                 {availableCategories.length > 0 ? (
                                     availableCategories.map(cat => (
-                                        <option key={cat.id} value={cat.id}>{cat.nombre}</option>
+                                        <div
+                                            key={cat.id}
+                                            className="form-check"
+                                            style={{ padding: '4px 8px', borderRadius: '4px' }}
+                                        >
+                                            <input
+                                                className="form-check-input"
+                                                type="checkbox"
+                                                id={`cat-${cat.id}`}
+                                                checked={(formData.categoriasId ?? []).includes(cat.id)}
+                                                onChange={() => handleCategoryToggle(cat.id)}
+                                            />
+                                            <label
+                                                className="form-check-label"
+                                                htmlFor={`cat-${cat.id}`}
+                                                style={{ cursor: 'pointer', userSelect: 'none' }}
+                                            >
+                                                {cat.nombre}
+                                            </label>
+                                        </div>
                                     ))
                                 ) : (
-                                    <option disabled>No hay categorías disponibles</option>
+                                    <span className="text-muted small">No hay categorías disponibles</span>
                                 )}
-                            </select>
-                            <small className="text-muted">Mantén presionado Ctrl (o Cmd) para seleccionar varias.</small>
+                            </div>
+                            <small className="text-muted">
+                                {(formData.categoriasId ?? []).length} seleccionada(s)
+                            </small>
                         </div>
-                        
+
                         <div className="col-md-6 d-flex align-items-center">
                             <div className="form-check form-switch ms-2 mt-4">
-                                <input className="form-check-input" type="checkbox" role="switch" id="activo" name="activo" checked={formData.activo} onChange={handleInputChange} />
+                                <input
+                                    className="form-check-input"
+                                    type="checkbox"
+                                    role="switch"
+                                    id="activo"
+                                    name="activo"
+                                    checked={formData.activo}
+                                    onChange={handleInputChange}
+                                />
                                 <label className="form-check-label fw-bold" htmlFor="activo">
                                     {formData.activo ? 'Producto Activo' : 'Producto Inactivo'}
                                 </label>
