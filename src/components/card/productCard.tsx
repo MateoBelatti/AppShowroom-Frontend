@@ -48,7 +48,7 @@ export function ProductCard({ id, nombre, descripcion, precio, imagen, stock, ac
             {/* Imagen */}
             <div className="card-img-wrapper position-relative">
                 <img
-                    src={"https://res-console.cloudinary.com/diixxzm7s/thumbnails/v1/image/upload/v1775752591/Y2xkLXNhbXBsZS01/drilldown"}
+                    src={imagen}
                     alt={nombre}
                     className="card-img-top"
                 />

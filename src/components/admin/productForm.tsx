@@ -20,6 +20,9 @@ const defaultFormState: ProductoCreateDto = {
     categoriasId: []
 };
 
+    const CLOUDINARY_URL = "https://api.cloudinary.com/v1_1/diixxzm7s/image/upload";
+    const CLOUDINARY_UPLOAD_PRESET = "canela_react_products";
+
 export const ProductForm: React.FC<ProductFormProps> = ({
     initialData,
     onSubmit,
@@ -27,7 +30,9 @@ export const ProductForm: React.FC<ProductFormProps> = ({
     availableCategories = []
 }) => {
     const [formData, setFormData] = useState<ProductoCreateDto | ProductoUpdateDto>(defaultFormState);
+    const [isUploading, setIsUploading] = useState<boolean>(false);
     const isEditMode = !!initialData;
+
 
     useEffect(() => {
         if (initialData) {
@@ -56,7 +61,6 @@ export const ProductForm: React.FC<ProductFormProps> = ({
         }));
     };
 
-    // ✅ FIX: handlers separados para campos numéricos con inputs controlados
     const handleNumberChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const { name, value } = e.target;
         // Guardar como string durante la edición para evitar el bug del "0" que no se borra
@@ -66,7 +70,6 @@ export const ProductForm: React.FC<ProductFormProps> = ({
         }));
     };
 
-    // ✅ FIX: checkboxes en lugar de select múltiple
     const handleCategoryToggle = (categoryId: number) => {
         setFormData(prev => {
             const current = prev.categoriasId ?? [];
@@ -91,6 +94,38 @@ export const ProductForm: React.FC<ProductFormProps> = ({
         };
         onSubmit(dataToSubmit);
     };
+    const handleImageUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
+        const file = e.target.files?.[0];
+        if (!file) return;
+
+        setIsUploading(true);
+
+        const data = new FormData();
+        data.append("file", file);
+        data.append("upload_preset", CLOUDINARY_UPLOAD_PRESET);
+
+        try {
+            const response = await fetch(CLOUDINARY_URL, {
+                method: "POST",
+                body: data,
+            });
+
+            const uploadedImage = await response.json();
+            
+            if (uploadedImage.secure_url) {
+                // Actualizamos el form con la URL que nos devuelve Cloudinary
+                setFormData(prev => ({
+                    ...prev,
+                    imagen: uploadedImage.secure_url
+                }));
+            }
+        } catch (error) {
+            console.error("Error al subir la imagen:", error);
+            alert("Hubo un error al subir la imagen. Inténtalo de nuevo.");
+        } finally {
+            setIsUploading(false);
+        }
+    };
 
     return (
         <div className="card product-form-card shadow-sm">
@@ -113,15 +148,34 @@ export const ProductForm: React.FC<ProductFormProps> = ({
                             />
                         </div>
                         <div className="col-md-6">
-                            <label htmlFor="imagen" className="form-label fw-bold">URL de la Imagen</label>
+                            {/* ✅ NUEVO INPUT: Cambiado a type="file" */}
+                            <label htmlFor="imagen" className="form-label fw-bold">Imagen</label>
                             <input
-                                type="text"
+                                type="file"
+                                accept="image/*"
                                 className="form-control"
                                 id="imagen"
                                 name="imagen"
-                                value={formData.imagen}
-                                onChange={handleInputChange}
+                                onChange={handleImageUpload}
+                                // Si el input está cargando, lo deshabilitamos para que no suban 2 a la vez
+                                disabled={isUploading} 
                             />
+                            
+                            {/* Feedback visual para el usuario */}
+                            {isUploading && (
+                                <small className="text-primary mt-1 d-block">Subiendo imagen a Cloudinary...</small>
+                            )}
+                            
+                            {/* Previsualización de la imagen si ya existe una URL */}
+                            {formData.imagen && !isUploading && (
+                                <div className="mt-2">
+                                    <img 
+                                        src={formData.imagen} 
+                                        alt="Preview" 
+                                        style={{ height: '60px', borderRadius: '4px', objectFit: 'cover' }} 
+                                    />
+                                </div>
+                            )}
                         </div>
                     </div>
 
@@ -251,7 +305,7 @@ export const ProductForm: React.FC<ProductFormProps> = ({
                             Cancelar
                         </button>
                         <button type="submit" className="btn btn-primary px-4">
-                            {isEditMode ? 'Guardar Cambios' : 'Crear Producto'}
+                            {isUploading ? 'Subiendo imagen...' : (isEditMode ? 'Guardar Cambios' : 'Crear Producto')}
                         </button>
                     </div>
                 </form>

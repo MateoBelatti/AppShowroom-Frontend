@@ -4,7 +4,6 @@ import type { ProductoCreateDto, ProductoDto, ProductoUpdateDto } from '../../ty
 import { ProductForm } from './productForm';
 import { useCategorias } from '../../hooks/useCategorias.hook';
 
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
 export const ProductosTab: React.FC<{ notify: (msg: string, type: 'ok'|'error') => void }> = ({ notify }) => {
     const [search, setSearch] = useState('');
     const [ productToEdit, setProductToEdit ] = useState< ProductoUpdateDto |  null>(null);
@@ -37,13 +36,16 @@ export const ProductosTab: React.FC<{ notify: (msg: string, type: 'ok'|'error') 
 
     const handlerDelete = (idProduct : number) => {
         deleteProduct(idProduct);
+        notify("Producto eliminado", "ok");
     }
 
     function handleSubmit(data: ProductoUpdateDto | ProductoCreateDto): void {
         if (productToEdit){
             updateProduct(data as ProductoUpdateDto);
+            notify("El producto fue actualizado", "ok");
         }else{
             addProduct(data as ProductoCreateDto);
+            notify("Producto creado", "ok");
         }
         setIsFormVisible(false);
         setProductToEdit(null);
