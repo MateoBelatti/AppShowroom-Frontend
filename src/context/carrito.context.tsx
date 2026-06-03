@@ -66,6 +66,7 @@ export const CarritoProvider = ({ children }: { children: ReactNode }) => {
             const newCarrito = await carritoService.create({UsuarioId : Number(auth.user?.id)})
             setCarrito(newCarrito);
             carritoIdActual = newCarrito.id;
+            refreshDetalles();
         }
         const productoCargado = detalles.find( det => det.productoId == detalle.productoId);
         try {
