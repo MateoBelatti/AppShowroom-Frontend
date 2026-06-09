@@ -1,0 +1,126 @@
+/* =========================================
+   FOOTER MINIMALISTA CENTRADO
+   ========================================= */
+.footer-minimal {
+  background-color: #ffffff;
+  padding: 60px 20px 40px;
+  font-family: var(--sans, sans-serif);
+  border-top: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+.footer-container {
+  max-width: 800px;
+  margin: 0 auto;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 32px;
+}
+
+/* =========================================
+    MARCA Y LOGO
+   ========================================= */
+.footer-brand-section {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+}
+
+.footer-logo {
+  width: 40px;
+  height: 40px;
+  object-fit: contain;
+  border-radius: 50%;
+}
+
+.footer-brand-name {
+  font-family: var(--heading, sans-serif);
+  font-weight: 700;
+  font-size: 1.4rem;
+  color: var(--text-h, #1a1a1a);
+  margin: 0;
+  letter-spacing: 0.5px;
+}
+
+/* =========================================
+   DESCRIPCIÓN
+   ========================================= */
+.footer-description-center {
+  font-size: 0.95rem;
+  line-height: 1.6;
+  color: var(--text, #666666);
+  max-width: 680px;
+  margin: 0;
+}
+
+/* =========================================
+   ENLACES (Términos, Privacidad)
+   ========================================= */
+.footer-links-inline {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  margin-top: 10px;
+}
+
+.footer-links-inline a {
+  color: var(--text, #777777);
+  font-size: 0.85rem;
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+.footer-links-inline a:hover {
+  color: var(--pink-deep, #333333);
+}
+
+.dot-separator {
+  color: #cccccc;
+  font-size: 1.2rem;
+  line-height: 1;
+}
+
+/* =========================================
+   CRÉDITOS Y COPYRIGHT
+   ========================================= */
+.footer-credits {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  font-size: 0.85rem;
+  color: #999999;
+}
+
+.footer-credits p {
+  margin: 0;
+}
+
+.dev-name {
+  font-weight: 700;
+  color: #598176; 
+}
+
+/* =========================================
+    RESPONSIVE
+   ========================================= */
+@media (max-width: 575px) {
+  .footer-minimal {
+    padding: 48px 16px 32px;
+  }
+  
+  .footer-brand-name {
+    font-size: 1.2rem;
+  }
+
+  .footer-links-inline {
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .dot-separator {
+    display: none;
+  }
+}

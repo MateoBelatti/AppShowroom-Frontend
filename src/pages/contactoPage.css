@@ -1,0 +1,113 @@
+/* =========================================
+   CONTENEDOR GENERAL Y TEXTOS
+   ========================================= */
+.contact-section {
+    background-color: var(--bg);
+    font-family: var(--sans);
+    min-height: 80vh;
+}
+
+.contact-title {
+    font-family: var(--heading);
+    color: var(--text-h);
+    font-size: clamp(32px, 5vw, 42px);
+    font-weight: 700;
+    letter-spacing: -1px;
+}
+
+.contact-subtitle {
+    color: var(--text);
+    font-size: 1.05rem;
+    line-height: 1.6;
+    max-width: 500px;
+}
+
+/* =========================================
+   TARJETA PRINCIPAL
+   ========================================= */
+.contact-card-container {
+    display: flex;
+    justify-content: center;
+    padding: 0 15px;
+}
+
+.contact-card {
+    background-color: #ffffff;
+    border-radius: 24px;
+    width: 100%;
+    max-width: 600px; 
+    padding: 2.5rem;
+    box-shadow: 0 12px 36px rgba(184, 142, 158, 0.08);
+    border: 1px solid rgba(229, 228, 231, 0.4);
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+/* =========================================
+   ITEMS DE CONTACTO
+   ========================================= */
+.contact-item {
+    display: flex;
+    align-items: center;
+    padding: 16px 20px;
+    border-radius: 16px;
+    transition: background-color 0.2s ease;
+}
+
+.contact-item:not(.item-highlighted):hover {
+    background-color: #fcf9fa;
+}
+
+.icon-wrapper {
+    width: 48px;
+    height: 48px;
+    min-width: 48px;
+    background-color: var(--accent-bg);
+    color: var(--text-h); 
+    border-radius: 14px; 
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-right: 20px;
+}
+
+.contact-info-title {
+    font-family: var(--sans);
+    font-size: 1rem;
+    font-weight: 700;
+    color: var(--text-h);
+    margin: 0 0 4px 0;
+}
+
+.contact-info-link {
+    display: block;
+    color: var(--accent); 
+    text-decoration: none;
+    font-size: 0.95rem;
+    font-weight: 500;
+    transition: color 0.2s ease;
+}
+
+.contact-info-link:hover {
+    color: var(--pink-hover);
+    text-decoration: underline;
+}
+
+.contact-info-text {
+    color: var(--text); 
+    font-size: 0.95rem;
+}
+
+/* =========================================
+   ITEM RESALTADO 
+   ========================================= */
+.item-highlighted {
+    background-color: #fdf6f7;
+    border: 1px solid rgba(212, 139, 159, 0.15); 
+}
+
+.item-highlighted .icon-wrapper {
+    background-color: #ffffff;
+    box-shadow: 0 4px 10px rgba(184, 142, 158, 0.08);
+}
