@@ -15,7 +15,7 @@ const ProtectedRoute = ({ children, requiredRole }: ProtectedRouteProps) => {
         return <Navigate to="/" replace />;
     }
 
-    if (requiredRole && user?.rol !== requiredRole) {
+    if (requiredRole && user?.['http://schemas.microsoft.com/ws/2008/06/identity/claims/role'] !== requiredRole) {
         return <Navigate to="/" replace />;
     }
 

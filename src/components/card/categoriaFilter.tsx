@@ -36,7 +36,7 @@ const CategoryFilter: React.FC<Props> = ({ categories, selected, onSelect }) => 
           className={`category-item ${selected === 0 ? 'active' : ''}`}
           onClick={() => handleSelect(0)}
         >
-          Todos
+          TODOS
         </button>
         
         {categories.map((cat) => (

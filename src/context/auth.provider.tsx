@@ -1,6 +1,7 @@
 import { type ReactNode, useState, useEffect } from "react";
 import type { JwtPayload } from "../types/auth.interfaces";
 import { AuthContext } from "./auth.context";
+import { setLogoutCallback } from "../services/http.client";
 
 export const AuthProvider = ({ children }: { children: ReactNode }) => {
     const [user, setUser] = useState<JwtPayload | null>(null);
@@ -8,6 +9,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     const isAuthenticated = !!user;
 
     useEffect(() => {
+        setLogoutCallback(logout);
         const storedToken = localStorage.getItem("token");
         if (!storedToken) return;
 
