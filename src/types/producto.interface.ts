@@ -30,5 +30,5 @@ export interface ProductoUpdateDto {
     stock : number;
     activo : boolean;
     tipo : number;
-    categoriasId: CategoriaDto[];
+    categoriasId: number[];
 }

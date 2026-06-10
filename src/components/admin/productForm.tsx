@@ -36,10 +36,15 @@ export const ProductForm: React.FC<ProductFormProps> = ({
 
     useEffect(() => {
         if (initialData) {
-            setFormData(initialData);
-        } else {
-            setFormData(defaultFormState);
-        }
+        setFormData({
+            ...initialData,
+            categoriasId: initialData.categoriasId.map(c =>
+                typeof c === 'number' ? c : (c as any).id
+            )
+        });
+    } else {
+        setFormData(defaultFormState);
+    }
     }, [initialData]);
 
     const handleInputChange = (

@@ -28,7 +28,7 @@ export const ProductosTab: React.FC<{ notify: (msg: string, type: 'ok'|'error') 
             stock : producto.stock,
             activo : producto.activo,
             tipo : producto.tipo,
-            categoriasId : producto.categorias
+            categoriasId : producto.categorias.map(c => c.id)
         }
         setIsFormVisible(true);
         setProductToEdit(productoUpdate)
