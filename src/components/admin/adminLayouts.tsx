@@ -19,11 +19,11 @@ export const AdminLayout: React.FC = () => {
             {toast && <Toast msg={toast.msg} type={toast.type} onDone={() => setToast(null)} />}
             
             <div className="row g-0 h-100">
-                <div className="col-auto col-md-3 col-xl-2 d-none d-md-block">
+                <div className="col-12 col-md-3 col-xl-2">
                     <Sidebar activeTab={activeTab} setActiveTab={setActiveTab} />
                 </div>
                 
-                <div className="col p-4 p-md-5">
+                <div className="col-12 col-md-9 col-xl-10 p-4 p-md-5">
                     <header className="mb-4">
                         <h2 className="fw-bold text-dark">
                             {activeTab === 'dashboard' && 'Resumen General'}
