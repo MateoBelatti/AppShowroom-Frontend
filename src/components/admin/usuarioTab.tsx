@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import { useUsuarios } from '../../hooks/useUsuario.hook';
 
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-export const UsuariosTab: React.FC<{ notify: (msg: string, type: 'ok'|'error') => void }> = ({ notify }) => {
+
+export const UsuariosTab: React.FC<{ notify: (msg: string, type: 'ok'|'error') => void }> = () => {
     const [search, setSearch] = useState('');
     const { usuarios } = useUsuarios();
     

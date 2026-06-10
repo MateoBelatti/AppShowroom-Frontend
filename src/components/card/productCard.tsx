@@ -6,7 +6,7 @@ import { useCarrito } from "../../hooks/useCarrito.hook";
 import "./productCard.css";
 import { useAuth } from "../../hooks/useAuth.hook";
 
-export function ProductCard({ id, nombre, descripcion, precio, imagen, stock, activo, tipo, categorias }: ProductoDto) {
+export function ProductCard({ id, nombre, descripcion, precio, imagen, stock, categorias }: ProductoDto) {
     const carrito = useCarrito();
     const [cantidad, setCantidad] = useState<number>(1);
     const auth = useAuth();

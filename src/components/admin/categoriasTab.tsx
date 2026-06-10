@@ -4,8 +4,7 @@ import type { CategoriaCreateDto, CategoriaDto, CategoriaUpdateDto } from '../..
 import { CategoryForm } from './categoriasForm';
 // Importa tus servicios, tipos y ConfirmDialog
 
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-export const CategoriasTab: React.FC<{ notify: (msg: string, type: 'ok'|'error') => void }> = ({ notify }) => {
+export const CategoriasTab: React.FC<{ notify: (msg: string, type: 'ok'|'error') => void }> = () => {
     const [search, setSearch] = useState('');
     const [ categoriaToEdit, setCategoriaToEdit] = useState<CategoriaUpdateDto | null>(null);
     const [ isFormVisible, setIsFormVisible] = useState<boolean>(false);
