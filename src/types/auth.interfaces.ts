@@ -4,9 +4,11 @@ export interface LoginDto {
 }
 
 export type JwtPayload = {
-    nombre : string;
     id: string;
-    "http://schemas.microsoft.com/ws/2008/06/identity/claims/role": string
+    nombre: string;
+    rol: string;
+    exp: number;
+    iat: number;
 };
 
 export type AuthContextType = {
