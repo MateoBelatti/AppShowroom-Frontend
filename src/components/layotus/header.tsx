@@ -18,7 +18,7 @@ const Header: React.FC = () => {
     const navigate = useNavigate();
 
     const handleOpenPerfil = () => {
-        if (auth.user?.["http://schemas.microsoft.com/ws/2008/06/identity/claims/role"] === 'Admin') {
+        if (auth.user?.rol === 'Admin') {
             navigate("/admin");
         } else {
             auth.logout();
@@ -106,7 +106,7 @@ const Header: React.FC = () => {
                         </div>
 
                         {/* Carrito */}
-                        {auth.user?.nombre && carrito && auth.user?.["http://schemas.microsoft.com/ws/2008/06/identity/claims/role"] !== "Admin" && (
+                        {auth.user?.nombre && carrito && auth.user?.rol !== "Admin" && (
                             <button
                                 className="cart-wrapper"
                                 onClick={() => setIsCarritoOpen(true)}

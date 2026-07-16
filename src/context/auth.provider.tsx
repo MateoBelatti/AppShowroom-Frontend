@@ -18,7 +18,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
         if (decoded) {
         setUser(decoded);
         localStorage.setItem('userId', decoded.id);
-        localStorage.setItem('userRol', decoded["http://schemas.microsoft.com/ws/2008/06/identity/claims/role"]);
+        localStorage.setItem('userRol', decoded.rol);
         }
     }, []);
 
@@ -30,7 +30,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
         if (decoded) {
             setUser(decoded);
             localStorage.setItem('userId', decoded.id);
-            localStorage.setItem('userRol', decoded["http://schemas.microsoft.com/ws/2008/06/identity/claims/role"]);
+            localStorage.setItem('userRol', decoded.rol);
         }
     };
 
