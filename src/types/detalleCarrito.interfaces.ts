@@ -1,5 +1,4 @@
 export interface DetalleCarritoCreateDto {
-    usuarioId : number;
     carritoId: number;
     productoId: number;
     cantidad: number;

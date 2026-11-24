@@ -63,7 +63,7 @@ export const CarritoProvider = ({ children }: { children: ReactNode }) => {
         if (!carritoIdActual) {
             if (!auth.user?.id) throw new Error("Usuario no logeado");
             
-            const newCarrito = await carritoService.create({UsuarioId : Number(auth.user?.id)})
+            const newCarrito = await carritoService.create()
             setCarrito(newCarrito);
             carritoIdActual = newCarrito.id;
             await refreshDetalles(carritoIdActual);

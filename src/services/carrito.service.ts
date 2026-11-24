@@ -1,9 +1,5 @@
 import apiClient from './http.client';
-import type { 
-    CarritoDto, 
-    CarritoCreateDto, 
-    CarritoUpdateDto 
-} from '../types/carrito.interfaces';
+import type { CarritoDto } from '../types/carrito.interfaces';
 
 const API_URL = '/carrito';
 
@@ -21,14 +17,8 @@ export const carritoService = {
     },
 
     // POST: /api/carrito
-    create: async (dataDto: CarritoCreateDto): Promise<CarritoDto> => {
-        const response = await apiClient.post<CarritoDto>(API_URL, dataDto);
-        return response.data;
-    },
-
-    // PUT: /api/carrito/{id}
-    update: async (id: number, dataDto: CarritoUpdateDto): Promise<CarritoDto> => {
-        const response = await apiClient.put<CarritoDto>(`${API_URL}/${id}`, dataDto);
+    create: async (): Promise<CarritoDto> => {
+        const response = await apiClient.post<CarritoDto>(API_URL);
         return response.data;
     },
 

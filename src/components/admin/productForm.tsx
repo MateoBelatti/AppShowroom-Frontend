@@ -14,7 +14,7 @@ const defaultFormState: ProductoCreateDto = {
     descripcion: '',
     precio: 0,
     activo: true,
-    tipo: 1,
+    tipo: 0,
     stock: 0,
     imagen: '',
     categoriasId: []
@@ -95,7 +95,7 @@ export const ProductForm: React.FC<ProductFormProps> = ({
             ...formData,
             precio: Number(formData.precio) || 0,
             stock: Number(formData.stock) || 0,
-            tipo: Number(formData.tipo) || 1,
+            tipo: Number(formData.tipo) || 0,
         };
         onSubmit(dataToSubmit);
     };

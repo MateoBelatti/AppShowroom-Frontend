@@ -5,8 +5,13 @@ let logoutCallback: (() => void) | null = null;
 export const setLogoutCallback = (fn: () => void) => {
   logoutCallback = fn;
 };
+// VITE_API_URL es el host del backend (ej: http://localhost:5102).
+// El back expone todo bajo /api, así que lo agregamos acá si no viene incluido.
+const rawBaseUrl = (import.meta.env.VITE_API_URL || 'http://localhost:5102').replace(/\/+$/, '');
+const baseURL = rawBaseUrl.endsWith('/api') ? rawBaseUrl : `${rawBaseUrl}/api`;
+
 const apiClient = axios.create({
-  baseURL: import.meta.env.VITE_API_URL,
+  baseURL,
   timeout: 10000,
   headers: {
     'Content-Type': 'application/json',

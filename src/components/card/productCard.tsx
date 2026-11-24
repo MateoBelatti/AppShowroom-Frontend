@@ -27,7 +27,6 @@ export function ProductCard({ id, nombre, descripcion, precio, imagen, stock, ca
             console.log("Creando detalle");
             
             carrito.addDetalle({
-                usuarioId : Number(auth.user?.id),
                 carritoId: Number(carrito.carrito?.id),
                 productoId: id,
                 cantidad: cantidad,
