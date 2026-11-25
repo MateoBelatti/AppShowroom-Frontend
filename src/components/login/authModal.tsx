@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { GoogleLogin } from '@react-oauth/google';
+import { GoogleLogin, type CredentialResponse } from '@react-oauth/google';
 import LoginForm from "./loginForm";
 import RegisterForm from "./registerForm";
 import "./auth.css";
@@ -14,7 +14,7 @@ const AuthModal: React.FC<AuthModalProps> = ({ onClose }) => {
     const [isLogin, setIsLogin] = useState(true);
     const auth = useAuth();
 
-    const handleGoogleSuccess = async (credentialResponse: any) => {
+    const handleGoogleSuccess = async (credentialResponse: CredentialResponse) => {
         console.log("Entrando en handler");
         
         if (credentialResponse.credential) {

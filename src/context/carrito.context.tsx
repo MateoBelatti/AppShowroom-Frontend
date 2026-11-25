@@ -1,12 +1,11 @@
-import { createContext, useState, useEffect, type ReactNode, useCallback } from "react";
-import type { CarritoDto, ICarritoContext } from "../types/carrito.interfaces";
+import { useState, useEffect, type ReactNode, useCallback } from "react";
+import { CarritoContext } from "./carritoContext";
+import type { CarritoDto } from "../types/carrito.interfaces";
 import type { DetalleCarritoCreateDto, DetalleCarritoDto, DetalleCarritoUpdateDto } from "../types/detalleCarrito.interfaces";
 import { useAuth } from "../hooks/useAuth.hook";
 import { carritoService } from "../services/carrito.service";
 import { detalleCarritoService } from "../services/detalleCarrito.service";
 import axios from "axios";
-
-export const CarritoContext = createContext<ICarritoContext | null>(null);
 
 export const CarritoProvider = ({ children }: { children: ReactNode }) => {
     const [ carrito, setCarrito ] = useState<CarritoDto | null>(null);
@@ -85,7 +84,7 @@ export const CarritoProvider = ({ children }: { children: ReactNode }) => {
             await detalleCarritoService.delete(idDetalle);
             await refreshDetalles();
         } catch (error) {
-                console.log("No se pudo eliminar el detalle de carrito");
+                console.log("No se pudo eliminar el detalle de carrito", error);
         }
     }
     return (

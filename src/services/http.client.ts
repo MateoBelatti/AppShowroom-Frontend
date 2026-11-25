@@ -39,6 +39,9 @@ apiClient.interceptors.response.use(
   },
   (error) => {
     // Manejo global de errores
+    if (error.response?.status === 500) {
+      console.error('Error interno del servidor.');
+    }
     if (error.response?.status === 401) {
       if (logoutCallback) {
         logoutCallback();
@@ -50,9 +53,6 @@ apiClient.interceptors.response.use(
       }
       // Redirige al home
       window.location.replace('/');
-      if (error.response.status === 500) {
-        console.error('Error interno del servidor.');
-      }
     }
 
     return Promise.reject(error);

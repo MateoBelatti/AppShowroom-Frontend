@@ -48,7 +48,7 @@ const LoginForm: React.FC<LoginFormProps> = ({onClose}) => {
 
             setTimeout(()=> onClose(), 1800)
 
-        } catch (error) {
+        } catch {
             setLoadingSucces(false);
         } finally{
             setLoading(false);

@@ -35,7 +35,7 @@ const RegisterForm: React.FC<RegisterFormProps> = ({ onClose }) => {
             setLoadingSuccess(true);
             setTimeout(() => onClose(), 1800);
 
-        } catch (error) {
+        } catch {
             setLoadingSuccess(false);
         } finally {
             setLoading(false);
