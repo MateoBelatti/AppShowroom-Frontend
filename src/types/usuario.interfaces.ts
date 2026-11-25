@@ -21,4 +21,8 @@ export interface UsuarioUpdateDto{
     telefono? : string;
 }
 
-type Rol = "User" | "Admin";
+export type Rol = "User" | "Admin";
+
+/** El back serializa el enum Rol como número (0/1); toleramos también el string. */
+export const normalizarRol = (rol: unknown): Rol =>
+    rol === "Admin" || rol === 1 || rol === "1" ? "Admin" : "User";

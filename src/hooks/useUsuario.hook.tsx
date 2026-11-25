@@ -1,6 +1,9 @@
 import { useEffect, useState, useCallback } from "react"
 import type { UsuarioDto, UsuarioCreateDto, UsuarioUpdateDto } from "../types/usuario.interfaces"
+import { normalizarRol } from "../types/usuario.interfaces"
 import { usuarioService } from "../services/usuario.service";
+
+const normalizar = (usuario: UsuarioDto): UsuarioDto => ({ ...usuario, rol: normalizarRol(usuario.rol) });
 
 export const useUsuarios = () => {
     const [usuarios, setUsuarios] = useState<UsuarioDto[]>([]);
@@ -12,11 +15,7 @@ export const useUsuarios = () => {
         setErrorUsuarios(null);
         try {
             const data = await usuarioService.getAll();
-            const usuariosMapeados: UsuarioDto[] = data.map((u: any) => ({
-            ...u,
-            rol: u.rol === 1 ? "Admin" : "User"
-        }));
-            setUsuarios(usuariosMapeados);
+            setUsuarios(data.map(normalizar));
         } catch {
             setErrorUsuarios("No se pudieron cargar los usuarios");
         } finally {
@@ -25,12 +24,13 @@ export const useUsuarios = () => {
     }, []);
 
     useEffect(() => {
+        // eslint-disable-next-line react-hooks/set-state-in-effect
         cargarUsuarios();
     }, [cargarUsuarios]);
 
     const addUsuario = async (data: UsuarioCreateDto) => {
         try {
-            const nuevoUsuario = await usuarioService.create(data);
+            const nuevoUsuario = normalizar(await usuarioService.create(data));
             setUsuarios(prev => [...prev, nuevoUsuario]);
             return nuevoUsuario;
         } catch (err) {
@@ -41,24 +41,24 @@ export const useUsuarios = () => {
 
     const updateUsuario = async (id: number, data: UsuarioUpdateDto) => {
         try {
-            const usuarioActualizado = await usuarioService.update(id, data);
+            const usuarioActualizado = normalizar(await usuarioService.update(id, data));
             setUsuarios(prev => prev.map(u => u.id === id ? usuarioActualizado : u));
             return usuarioActualizado;
         } catch (err) {
             setErrorUsuarios("No se pudo actualizar el usuario");
+            await cargarUsuarios();
             throw err;
         }
     };
 
     const deleteUsuario = async (id: number) => {
         try {
-            const success = await usuarioService.delete(id);
-            if (success) {
-                setUsuarios(prev => prev.filter(u => u.id !== id));
-            }
-            return success;
+            await usuarioService.delete(id);
+            setUsuarios(prev => prev.filter(u => u.id !== id));
+            return true;
         } catch (err) {
             setErrorUsuarios("No se pudo eliminar el usuario");
+            await cargarUsuarios();
             throw err;
         }
     };
@@ -70,6 +70,6 @@ export const useUsuarios = () => {
         addUsuario,
         updateUsuario,
         deleteUsuario,
-        cargarUsuarios
+        cargarUsuarios,
     };
-}
+};

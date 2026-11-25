@@ -1,0 +1,194 @@
+/* Modales de detalle y edición de usuarios */
+
+.admin-modal-overlay {
+  position: fixed;
+  inset: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: 1060;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  background: rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(3px);
+}
+
+.admin-modal {
+  width: 100%;
+  max-width: 540px;
+  max-height: min(88vh, 820px);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-card);
+  box-shadow: var(--shadow);
+  animation: admin-modal-in 0.18s ease-out;
+}
+
+.admin-modal--wide { max-width: 720px; }
+
+@keyframes admin-modal-in {
+  from { opacity: 0; transform: translateY(10px) scale(0.98); }
+  to { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+.admin-modal__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 20px 24px;
+  border-bottom: 1px solid var(--border);
+  color: var(--text-h);
+}
+
+.admin-modal__title { font-size: 1.1rem; font-weight: 650; }
+.admin-modal__subtitle { font-size: 0.8rem; color: var(--text-secondary); }
+
+.admin-modal__avatar {
+  width: 44px;
+  height: 44px;
+  flex: 0 0 44px;
+  display: grid;
+  place-items: center;
+  border-radius: 14px;
+  background: var(--accent-bg);
+  border: 1px solid var(--accent-border);
+  color: var(--pink-deep);
+  font-weight: 700;
+}
+
+.admin-modal__body {
+  padding: 22px 24px;
+  overflow-y: auto;
+}
+
+.admin-modal__footer {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+  padding: 16px 24px;
+  border-top: 1px solid var(--border);
+  background: var(--bg);
+}
+
+.admin-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 5px 11px;
+  font-size: 0.74rem;
+  font-weight: 600;
+  border-radius: var(--radius-pill);
+  background: var(--accent-bg);
+  border: 1px solid var(--accent-border);
+  color: var(--pink-deep);
+}
+
+.admin-chip--dark {
+  background: rgba(90, 74, 92, 0.1);
+  border-color: rgba(90, 74, 92, 0.2);
+  color: var(--text-h);
+}
+
+.admin-chip--mock {
+  background: rgba(255, 193, 7, 0.1);
+  border-color: rgba(255, 193, 7, 0.3);
+  color: #9a6b00;
+}
+
+.admin-section-title {
+  font-size: 0.76rem;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: var(--text-secondary);
+  margin-bottom: 12px;
+}
+
+.admin-detail-grid,
+.admin-metrics-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+  gap: 10px;
+}
+
+.admin-detail-item,
+.admin-metric {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  padding: 12px 14px;
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  background: var(--bg);
+  color: var(--pink-deep);
+}
+
+.admin-detail-item div,
+.admin-metric { min-width: 0; }
+
+.admin-detail-item span,
+.admin-metric span {
+  display: block;
+  font-size: 0.72rem;
+  color: var(--text-secondary);
+  margin-bottom: 2px;
+}
+
+.admin-detail-item strong,
+.admin-metric strong {
+  display: block;
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--text-h);
+  overflow-wrap: anywhere;
+}
+
+.admin-metric { flex-direction: column; gap: 2px; }
+
+.admin-progress-box {
+  margin-top: 16px;
+  padding: 16px;
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  background: var(--bg);
+}
+
+.admin-progress { height: 8px; background: var(--border); }
+.admin-progress .progress-bar { background: var(--pink-deep); }
+
+.admin-mock-note {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  margin-top: 16px;
+  padding: 12px 14px;
+  border-radius: 12px;
+  background: rgba(255, 193, 7, 0.08);
+  color: var(--text-secondary);
+  font-size: 0.78rem;
+}
+
+.admin-spinner {
+  width: 14px;
+  height: 14px;
+  border: 2px solid rgba(255, 255, 255, 0.45);
+  border-top-color: #fff;
+  border-radius: 50%;
+  animation: admin-spin 0.7s linear infinite;
+}
+
+@keyframes admin-spin { to { transform: rotate(360deg); } }
+
+@media (max-width: 576px) {
+  .admin-modal-overlay { padding: 10px; }
+  .admin-modal__header,
+  .admin-modal__body,
+  .admin-modal__footer { padding-left: 16px; padding-right: 16px; }
+  .admin-modal__footer { flex-direction: column-reverse; }
+  .admin-modal__footer .btn { width: 100%; }
+}
