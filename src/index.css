@@ -1,9 +1,13 @@
 /* =========================================
-   1. Variables Globales (Tema Claro Permanente)
+   1. Variables Globales (Tema claro por defecto)
    ========================================= */
 :root {
   /* Fondos */
   --bg: #fdf6f7;
+  --bg-card: #ffffff;
+  --bg-image: #f9eef2;
+  --bg-elevated: rgba(255, 255, 255, 0.75);
+  --header-border: rgba(229, 228, 231, 0.6);
 
   /* Tipografía */
   --text: #6b6375;
@@ -23,6 +27,9 @@
   --pink-pastel: #f4cdd8;
   --pink-hover: #e6aeba;
   --pink-badge: #d48b9f;
+  --pink-deep: #b56b81;
+  --pink-light: #fde8ed;
+  --on-accent: #ffffff;
 
   /* Radios */
   --radius-pill: 50px;
@@ -31,6 +38,12 @@
 
   /* Transición global */
   --transition: 0.3s ease-in-out;
+
+  /* Skeleton de carga */
+  --skeleton-a: #f0e8ec;
+  --skeleton-b: #f9f0f3;
+
+  color-scheme: light;
 
   /* Sombras */
   --shadow: 0 10px 15px -3px rgba(184, 142, 158, 0.1),
@@ -42,6 +55,48 @@
   --sans: 'Inter', system-ui, 'Segoe UI', Roboto, sans-serif;
   --heading: 'Inter', system-ui, 'Segoe UI', Roboto, sans-serif;
   --mono: ui-monospace, Consolas, monospace;
+}
+
+/* =========================================
+   1b. Tema oscuro
+   ========================================= */
+html[data-theme="dark"] {
+  color-scheme: dark;
+  --bg: #17141b;
+  --bg-card: #221e28;
+  --bg-image: #2a2430;
+  --bg-elevated: rgba(23, 20, 27, 0.92);
+  --header-border: rgba(255, 255, 255, 0.09);
+
+  --text: #d6cfda;
+  --text-h: #f3eaf0;
+  --text-secondary: #a99fae;
+
+  --border: #3a3341;
+  --code-bg: #241f2b;
+
+  --accent: #e6a8ba;
+  --accent-bg: rgba(230, 168, 186, 0.14);
+  --accent-border: rgba(230, 168, 186, 0.38);
+  --pink-pastel: #4a3440;
+  --pink-hover: #c9869c;
+  --pink-badge: #d48b9f;
+  --pink-deep: #f0b6c6;
+  --pink-light: #332732;
+  --on-accent: #1a151d;
+
+  --skeleton-a: #2c2633;
+  --skeleton-b: #332c3a;
+
+  --shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.45),
+    0 4px 6px -2px rgba(0, 0, 0, 0.35);
+  --shadow-card: 0 4px 12px rgba(0, 0, 0, 0.4);
+  --shadow-card-hover: 0 12px 24px rgba(0, 0, 0, 0.55);
+
+  /* El tema de Bootstrap acompaña al nuestro. */
+  --bs-body-bg: var(--bg);
+  --bs-body-color: var(--text);
+  --bs-border-color: var(--border);
 }
 
 /* =========================================
@@ -58,12 +113,17 @@ body {
   font: 16px/1.5 var(--sans);
   color: var(--text);
   background-color: var(--bg);
-  color-scheme: light;
 
   font-synthesis: none;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+}
+
+/* Bootstrap se importa después: damos prioridad a nuestras variables. */
+html[data-theme] body {
+  color: var(--text);
+  background-color: var(--bg);
 }
 
 /* Contenedor Principal */
@@ -117,4 +177,56 @@ p {
   border: none;
   border-top: 1px solid var(--border);
   opacity: 1;
+}
+
+/* =========================================
+   5. Ajustes del tema oscuro
+   ========================================= */
+/* Utilidades de Bootstrap que no reaccionan a data-bs-theme */
+html[data-theme="dark"] .bg-white,
+html[data-theme="dark"] .bg-light {
+  background-color: var(--bg-card) !important;
+}
+
+html[data-theme="dark"] .text-dark,
+html[data-theme="dark"] .link-dark {
+  color: var(--text-h) !important;
+}
+
+html[data-theme="dark"] .link-dark:hover,
+html[data-theme="dark"] .link-dark:focus {
+  color: var(--pink-deep) !important;
+}
+
+html[data-theme="dark"] .table-light {
+  --bs-table-color: var(--text);
+  --bs-table-bg: var(--bg-card);
+  --bs-table-border-color: var(--border);
+  --bs-table-striped-bg: var(--bg);
+  --bs-table-striped-color: var(--text);
+  --bs-table-active-bg: var(--accent-bg);
+  --bs-table-active-color: var(--text-h);
+  --bs-table-hover-bg: var(--accent-bg);
+  --bs-table-hover-color: var(--text-h);
+  color: var(--bs-table-color);
+  border-color: var(--bs-table-border-color);
+}
+
+/* Detalles puntuales con color fijo */
+html[data-theme="dark"] .dev-name {
+  color: var(--pink-deep);
+}
+
+html[data-theme="dark"] .error-text,
+html[data-theme="dark"] .catalog-feedback-box.error,
+html[data-theme="dark"] .product-modal-stock-badge.out-of-stock {
+  color: #f0a3b1;
+}
+
+html[data-theme="dark"] .product-modal-stock-badge.in-stock {
+  color: #8fd0a2;
+}
+
+html[data-theme="dark"] .product-card .card-img-top {
+  mix-blend-mode: normal;
 }

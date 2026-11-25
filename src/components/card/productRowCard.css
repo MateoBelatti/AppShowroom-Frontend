@@ -7,7 +7,7 @@
   display: flex;
   align-items: center;
   gap: 1.25rem;
-  background-color: #ffffff;
+  background-color: var(--bg-card);
   border: 1px solid var(--border);
   border-radius: 14px;
   padding: 1rem 1.35rem;
@@ -155,7 +155,7 @@
 .btn-row-add.added {
   background-color: var(--text-h);
   border-color: var(--text-h);
-  color: #ffffff;
+  color: var(--on-accent);
 }
 
 .btn-row-add.disabled,

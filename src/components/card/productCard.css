@@ -169,7 +169,7 @@
 }
 
 .btn-qty:disabled {
-  color: #cdc9d0;
+  color: var(--text-secondary);
   cursor: not-allowed;
 }
 
@@ -187,7 +187,7 @@
    ========================================= */
 .btn-card-accent {
   background-color: var(--text-h);
-  color: #ffffff;
+  color: var(--on-accent);
   border: none;
   border-radius: var(--radius-pill);
   padding: 8px 14px;

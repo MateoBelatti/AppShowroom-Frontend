@@ -4,6 +4,7 @@ import './index.css'
 import App from './App.tsx'
 import { AuthProvider } from './context/auth.provider.tsx'
 import { CarritoProvider } from './context/carrito.context.tsx'
+import { ThemeProvider } from './context/theme.provider.tsx'
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { GoogleOAuthProvider } from '@react-oauth/google';
 
@@ -14,7 +15,9 @@ createRoot(document.getElementById('root')!).render(
     <GoogleOAuthProvider clientId={clientId}>
       <AuthProvider>
         <CarritoProvider>
-          <App />
+          <ThemeProvider>
+            <App />
+          </ThemeProvider>
         </CarritoProvider>
       </AuthProvider>
     </GoogleOAuthProvider>

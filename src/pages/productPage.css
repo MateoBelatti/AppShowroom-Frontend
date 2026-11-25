@@ -1,7 +1,7 @@
 /* =========================================
    VISTA DE PRODUCTOS (ProductPage)
    Inspirada en el diseño editorial de Canela
-   Manteniendo la paleta de colores claros actual
+   Colores adaptados al tema activo
    ========================================= */
 
 .product-page-root {
@@ -23,7 +23,7 @@
    ========================================= */
 .featured-hero-card {
   display: flex;
-  background-color: #ffffff;
+  background-color: var(--bg-card);
   border: 1px solid var(--border);
   border-radius: 16px;
   overflow: hidden;
@@ -148,7 +148,7 @@
 
 .btn-featured-add.added {
   background-color: var(--text-h);
-  color: #ffffff;
+  color: var(--on-accent);
 }
 
 .btn-featured-add.disabled,
@@ -223,7 +223,7 @@
 }
 
 .catalog-feedback-box {
-  background-color: #ffffff;
+  background-color: var(--bg-card);
   border: 1px solid var(--border);
   border-radius: 12px;
   padding: 3rem 1.5rem;

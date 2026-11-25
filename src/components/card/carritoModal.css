@@ -14,7 +14,7 @@
 }
 
 .carrito-drawer {
-  background-color: #fff;
+  background-color: var(--bg-card);
   width: 100%;
   max-width: 440px;
   height: 100vh;
@@ -54,7 +54,7 @@
 
 .carrito-badge-count {
   background-color: var(--pink-badge);
-  color: white;
+  color: var(--on-accent);
   font-size: 0.72rem;
   font-weight: 700;
   width: 20px;
@@ -79,7 +79,7 @@
 }
 
 .carrito-close-btn:hover {
-  background-color: var(--pink-light, #fde8ed);
+  background-color: var(--pink-light);
   color: var(--text-h);
 }
 
@@ -165,7 +165,7 @@
   width: 26px;
   height: 26px;
   border: 1px solid var(--border);
-  background-color: #fff;
+  background-color: var(--bg-card);
   border-radius: 8px;
   cursor: pointer;
   font-size: 1rem;
@@ -268,7 +268,7 @@
   flex-direction: column;
   gap: 14px;
   flex-shrink: 0;
-  background-color: #fff;
+  background-color: var(--bg-card);
 }
 
 .carrito-footer-row {
@@ -311,7 +311,7 @@
   width: 100%;
   padding: 14px;
   background-color: var(--accent);
-  color: #fff;
+  color: var(--on-accent);
   border: none;
   border-radius: var(--radius-pill);
   font-size: 0.9rem;

@@ -1,9 +1,11 @@
 import React, { useEffect, useState } from "react";
 import "./header.css";
 import { CiShoppingCart, CiUser } from "react-icons/ci"; 
+import { Moon, Sun } from "lucide-react";
 import { Link, useNavigate } from "react-router-dom";
 import { useAuth } from "../../hooks/useAuth.hook";
 import { useCarrito } from "../../hooks/useCarrito.hook";
+import { useTheme } from "../../hooks/useTheme.hook";
 import AuthModal from "../login/authModal";
 import CarritoModal from "../card/carritoModal";
 
@@ -16,6 +18,7 @@ const Header: React.FC = () => {
     const auth = useAuth();
     const carrito = useCarrito();
     const navigate = useNavigate();
+    const { tema, cambiarTema } = useTheme();
 
     const handleOpenPerfil = () => {
         if (auth.user?.rol === 'Admin') {
@@ -36,6 +39,7 @@ const Header: React.FC = () => {
     };
 
     const closeMobileMenu = () => setIsMenuOpen(false);
+    const esOscuro = tema === "dark";
 
     useEffect(()=>{
 
@@ -82,11 +86,22 @@ const Header: React.FC = () => {
 
                     {/* Iconos derecha */}
                     <div className="icons-container">
-                        
+
+                        {/* Tema claro / oscuro */}
+                        <button
+                            className="icon-button theme-toggle"
+                            onClick={cambiarTema}
+                            aria-label={esOscuro ? "Cambiar a modo claro" : "Cambiar a modo oscuro"}
+                            aria-pressed={esOscuro}
+                            title={esOscuro ? "Modo claro" : "Modo oscuro"}
+                        >
+                            {esOscuro ? <Sun size={22} /> : <Moon size={22} />}
+                        </button>
+
                         {/* Usuario */}
                         <div className="user-wrapper">
                             <button onClick={handleButton} className="icon-button">
-                                <CiUser color="#8f7889be" size={24} />
+                                <CiUser size={24} />
                             </button>
 
                             {auth.user?.nombre && openBurbuja && (
@@ -112,7 +127,7 @@ const Header: React.FC = () => {
                                 onClick={() => setIsCarritoOpen(true)}
                                 aria-label="Abrir carrito"
                             >
-                                <CiShoppingCart size={28} color="#8f7889be" />
+                                <CiShoppingCart size={28} />
                                 {carrito.detalles.length > 0 && (
                                     <span className="cart-badge">
                                         {carrito.detalles.length}

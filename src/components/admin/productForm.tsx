@@ -247,12 +247,12 @@ export const ProductForm: React.FC<ProductFormProps> = ({
                             <label className="form-label fw-bold">Categorías</label>
                             <div
                                 style={{
-                                    border: '1px solid #dee2e6',
+                                    border: '1px solid var(--border)',
                                     borderRadius: '6px',
                                     height: '140px',
                                     overflowY: 'auto',
                                     padding: '8px',
-                                    backgroundColor: '#fff'
+                                    backgroundColor: 'var(--bg-card)'
                                 }}
                             >
                                 {availableCategories.length > 0 ? (

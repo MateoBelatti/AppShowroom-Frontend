@@ -26,7 +26,7 @@
 }
 
 .product-modal-container {
-  background-color: #ffffff;
+  background-color: var(--bg-card);
   border: 1px solid var(--border);
   border-radius: 18px;
   box-shadow: 0 20px 40px rgba(92, 71, 85, 0.2);
@@ -54,7 +54,7 @@
   top: 14px;
   right: 14px;
   z-index: 15;
-  background-color: rgba(255, 255, 255, 0.85);
+  background-color: var(--bg-elevated);
   border: 1px solid var(--border);
   border-radius: 50%;
   width: 36px;
@@ -265,7 +265,7 @@
 .btn-modal-add {
   flex: 1;
   background-color: var(--text-h);
-  color: #ffffff;
+  color: var(--on-accent);
   border: none;
   border-radius: var(--radius-pill);
   padding: 0.65rem 1.4rem;

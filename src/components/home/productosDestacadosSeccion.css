@@ -115,9 +115,9 @@
   border-radius: var(--radius-card);
   background: linear-gradient(
     90deg,
-    #f0e8ec 25%,
-    #f9f0f3 50%,
-    #f0e8ec 75%
+    var(--skeleton-a) 25%,
+    var(--skeleton-b) 50%,
+    var(--skeleton-a) 75%
   );
   background-size: 200% 100%;
   animation: shimmer 1.4s infinite ease-in-out;

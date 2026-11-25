@@ -2,10 +2,10 @@
    FOOTER MINIMALISTA CENTRADO
    ========================================= */
 .footer-minimal {
-  background-color: #ffffff;
+  background-color: var(--bg-card);
   padding: 60px 20px 40px;
   font-family: var(--sans, sans-serif);
-  border-top: 1px solid rgba(0, 0, 0, 0.05);
+  border-top: 1px solid var(--border);
 }
 
 .footer-container {
@@ -78,7 +78,7 @@
 }
 
 .dot-separator {
-  color: #cccccc;
+  color: var(--border);
   font-size: 1.2rem;
   line-height: 1;
 }
@@ -91,7 +91,7 @@
   flex-direction: column;
   gap: 8px;
   font-size: 0.85rem;
-  color: #999999;
+  color: var(--text-secondary);
 }
 
 .footer-credits p {

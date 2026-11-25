@@ -1,11 +1,11 @@
 .product-form-card {
-    border: 1px solid #e0e0e0;
+    border: 1px solid var(--border);
     border-radius: 8px;
-    background-color: #ffffff;
+    background-color: var(--bg-card);
 }
 
 .product-form-card .card-header h4 {
-    color: #212529;
+    color: var(--text-h);
     font-weight: 700;
 }
 
@@ -13,13 +13,13 @@
     font-size: 0.85rem;
     text-transform: uppercase;
     letter-spacing: 0.5px;
-    color: #495057;
+    color: var(--text);
 }
 
 .product-form-card .form-control,
 .product-form-card .form-select {
     border-radius: 6px;
-    border: 1px solid #ced4da;
+    border: 1px solid var(--border);
     padding: 0.5rem 0.75rem;
 }
 

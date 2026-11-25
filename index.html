@@ -4,6 +4,21 @@
     <meta charset="UTF-8" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script>
+      (function () {
+        try {
+          var guardado = localStorage.getItem('tema');
+          var oscuro = guardado ? guardado === 'dark'
+            : window.matchMedia('(prefers-color-scheme: dark)').matches;
+          var tema = oscuro ? 'dark' : 'light';
+          document.documentElement.dataset.theme = tema;
+          document.documentElement.dataset.bsTheme = tema;
+        } catch (error) {
+          document.documentElement.dataset.theme = 'light';
+          document.documentElement.dataset.bsTheme = 'light';
+        }
+      })();
+    </script>
     <title>canelafront</title>
   </head>
   <body>
