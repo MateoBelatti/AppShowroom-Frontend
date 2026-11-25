@@ -5,11 +5,47 @@
   left: 0;
   width: 100vw;
   height: 100vh;
-  background-color: rgba(0, 0, 0, 0.5); /* Oscurece el fondo */
-  backdrop-filter: blur(2px); /* Efecto difuminado moderno */
+  background-color: rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(2px);
   z-index: 1050;
   display: flex;
   align-items: center;
   justify-content: center;
   padding: 20px;
+}
+
+.confirm-dialog {
+  background: var(--bg-card);
+  color: var(--text);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-card);
+}
+
+.confirm-dialog__body {
+  padding: 30px 26px 26px;
+  text-align: center;
+}
+
+.confirm-dialog__icon {
+  width: 54px;
+  height: 54px;
+  margin: 0 auto 14px;
+  border-radius: 16px;
+  display: grid;
+  place-items: center;
+  background: rgba(220, 53, 69, 0.09);
+  color: #dc3545;
+}
+
+.confirm-dialog__title {
+  font-size: 1.1rem;
+  font-weight: 650;
+  color: var(--text-h);
+  margin-bottom: 8px;
+}
+
+.confirm-dialog__msg {
+  font-size: 0.9rem;
+  color: var(--text-secondary);
+  margin: 0;
 }

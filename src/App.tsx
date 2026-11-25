@@ -10,13 +10,13 @@ import ProtectedRoute from './components/layotus/protectedRoute';
 function App() {
   return (
     <Router>
-      <Header /> 
+      <Header />
       <main>
         <Routes>
           <Route path='/' element={<HomePage />} />
           <Route path='/contacto' element={<ContactPage />} />
           <Route path='/producto' element={<ProductPage />} />
-          <Route path='/admin' element={
+          <Route path='/admin/*' element={
             <ProtectedRoute requiredRole="Admin">
             <AdminPage />
             </ProtectedRoute>

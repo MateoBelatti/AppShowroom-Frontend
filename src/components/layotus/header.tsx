@@ -21,12 +21,7 @@ const Header: React.FC = () => {
     const { tema, cambiarTema } = useTheme();
 
     const handleOpenPerfil = () => {
-        if (auth.user?.rol === 'Admin') {
-            navigate("/admin");
-        } else {
-            auth.logout();
-            navigate("/perfil");
-        }
+        navigate(auth.user?.rol === 'Admin' ? "/admin" : "/");
         setOpenBurbuja(false);
     };
 
@@ -110,7 +105,7 @@ const Header: React.FC = () => {
                                     <div className="user-bubble">
                                         <p className="user-name">Hola, {auth.user.nombre}</p>
                                         <button className="perfil-btn" onClick={handleOpenPerfil}>
-                                            Ir a mi perfil
+                                            {auth.user.rol === 'Admin' ? 'Ir al panel' : 'Mi perfil (próximamente)'}
                                         </button>
                                         <button className="perfil-btn" onClick={auth.logout}>
                                             Cerrar Sesion
