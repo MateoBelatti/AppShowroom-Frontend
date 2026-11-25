@@ -4,9 +4,10 @@ import type { ProductoCreateDto, ProductoUpdateDto } from '../../types/producto.
 
 interface ProductFormProps {
     initialData?: ProductoUpdateDto | null;
-    onSubmit: (data: ProductoCreateDto | ProductoUpdateDto) => void;
+    onSubmit: (data: ProductoCreateDto | ProductoUpdateDto) => void | Promise<void>;
     onCancel: () => void;
     availableCategories?: { id: number; nombre: string }[];
+    notify?: (msg: string, type: 'ok' | 'error') => void;
 }
 
 const defaultFormState: ProductoCreateDto = {
@@ -20,14 +21,15 @@ const defaultFormState: ProductoCreateDto = {
     categoriasId: []
 };
 
-    const CLOUDINARY_URL = "https://api.cloudinary.com/v1_1/diixxzm7s/image/upload";
-    const CLOUDINARY_UPLOAD_PRESET = "canela_react_products";
+    const CLOUDINARY_URL = import.meta.env.VITE_CLOUDINARY_URL || "https://api.cloudinary.com/v1_1/diixxzm7s/image/upload";
+    const CLOUDINARY_UPLOAD_PRESET = import.meta.env.VITE_CLOUDINARY_UPLOAD_PRESET || "canela_react_products";
 
 export const ProductForm: React.FC<ProductFormProps> = ({
     initialData,
     onSubmit,
     onCancel,
-    availableCategories = []
+    availableCategories = [],
+    notify,
 }) => {
     const [formData, setFormData] = useState<ProductoCreateDto | ProductoUpdateDto>(defaultFormState);
     const [isUploading, setIsUploading] = useState<boolean>(false);
@@ -36,10 +38,11 @@ export const ProductForm: React.FC<ProductFormProps> = ({
 
     useEffect(() => {
         if (initialData) {
+        // eslint-disable-next-line react-hooks/set-state-in-effect
         setFormData({
             ...initialData,
             categoriasId: initialData.categoriasId.map(c =>
-                typeof c === 'number' ? c : (c as any).id
+                typeof c === 'number' ? c : (c as { id: number }).id
             )
         });
     } else {
@@ -52,7 +55,7 @@ export const ProductForm: React.FC<ProductFormProps> = ({
     ) => {
         const { name, value, type } = e.target;
 
-        let parsedValue: any = value;
+        let parsedValue: string | boolean = value;
 
         if (type === 'checkbox') {
             parsedValue = (e.target as HTMLInputElement).checked;
@@ -66,7 +69,7 @@ export const ProductForm: React.FC<ProductFormProps> = ({
         }));
     };
 
-    const handleNumberChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const handleNumberChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
         const { name, value } = e.target;
         // Guardar como string durante la edición para evitar el bug del "0" que no se borra
         setFormData(prev => ({
@@ -115,18 +118,24 @@ export const ProductForm: React.FC<ProductFormProps> = ({
                 body: data,
             });
 
+            if (!response.ok) {
+                throw new Error(`Cloudinary respondió ${response.status}`);
+            }
+
             const uploadedImage = await response.json();
-            
+
             if (uploadedImage.secure_url) {
-                // Actualizamos el form con la URL que nos devuelve Cloudinary
                 setFormData(prev => ({
                     ...prev,
                     imagen: uploadedImage.secure_url
                 }));
+            } else {
+                throw new Error("Cloudinary no devolvió una URL");
             }
         } catch (error) {
             console.error("Error al subir la imagen:", error);
-            alert("Hubo un error al subir la imagen. Inténtalo de nuevo.");
+            const mensaje = "Hubo un error al subir la imagen. Inténtalo de nuevo.";
+            if (notify) notify(mensaje, 'error'); else alert(mensaje);
         } finally {
             setIsUploading(false);
         }
@@ -228,16 +237,17 @@ export const ProductForm: React.FC<ProductFormProps> = ({
                         </div>
                         <div className="col-md-4">
                             <label htmlFor="tipo" className="form-label fw-bold">Tipo</label>
-                            <input
-                                type="number"
-                                className="form-control"
+                            <select
+                                className="form-select"
                                 id="tipo"
                                 name="tipo"
-                                min="1"
                                 value={formData.tipo}
                                 onChange={handleNumberChange}
                                 required
-                            />
+                            >
+                                <option value={0}>Vela</option>
+                            </select>
+                            <small className="text-secondary">Próximamente más tipos de producto</small>
                         </div>
                     </div>
 
