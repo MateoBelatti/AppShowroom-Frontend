@@ -21,6 +21,7 @@ export const useCategorias = () => {
     }, []);
 
     useEffect(() => {
+        // eslint-disable-next-line react-hooks/set-state-in-effect
         cargarCategorias();
     }, [cargarCategorias]);
 
@@ -63,6 +64,7 @@ export const useCategorias = () => {
         categorias,
         loadingCat,
         errorCat,
+        cargarCategorias,
         addCategoria,
         updateCategoria,
         deleteCategoria,

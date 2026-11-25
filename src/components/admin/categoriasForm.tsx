@@ -4,7 +4,7 @@ import type { CategoriaCreateDto, CategoriaUpdateDto } from '../../types/categor
 
 interface CategoryFormProps {
     initialData?: CategoriaUpdateDto | null;
-    onSubmit: (data: CategoriaCreateDto | CategoriaUpdateDto) => void;
+    onSubmit: (data: CategoriaCreateDto | CategoriaUpdateDto) => void | Promise<void>;
     onCancel: () => void;
 }
 
@@ -38,14 +38,13 @@ export const CategoryForm: React.FC<CategoryFormProps> = ({
         }));
     };
 
-    const handleSubmit = (e: React.FormEvent) => {
+    const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
-        onSubmit(formData);
-        onCancel();
+        await onSubmit(formData);
     };
 
     return (
-        <div className="card shadow-sm category-form-card">s
+        <div className="card shadow-sm category-form-card">
             <div className="card-header bg-white border-bottom-0 pt-4 pb-0">
                 <h4 className="mb-0">{isEditMode ? 'Editar Categoría' : 'Crear Nueva Categoría'}</h4>
             </div>
@@ -63,7 +62,7 @@ export const CategoryForm: React.FC<CategoryFormProps> = ({
                             onChange={handleInputChange} 
                             required 
                             autoFocus 
-                            placeholder="Ej. Electrónica, Ropa, etc."
+                            placeholder="Ej. Velas, Aromas, Difusores..."
                         />
                     </div>
 
