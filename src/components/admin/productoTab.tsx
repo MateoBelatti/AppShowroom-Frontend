@@ -39,7 +39,7 @@ export const ProductosTab: React.FC<{ notify: Notify }> = ({ notify }) => {
             stock: producto.stock,
             activo: producto.activo,
             tipo: producto.tipo,
-            categoriasId: producto.categorias.map(c => c.id),
+            categoriasIds: producto.categorias.map(c => c.id),
         });
         setIsFormVisible(true);
     };

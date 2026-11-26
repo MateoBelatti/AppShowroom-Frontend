@@ -18,7 +18,7 @@ const defaultFormState: ProductoCreateDto = {
     tipo: 0,
     stock: 0,
     imagen: '',
-    categoriasId: []
+    categoriasIds: []
 };
 
     const CLOUDINARY_URL = import.meta.env.VITE_CLOUDINARY_URL || "https://api.cloudinary.com/v1_1/diixxzm7s/image/upload";
@@ -41,7 +41,7 @@ export const ProductForm: React.FC<ProductFormProps> = ({
         // eslint-disable-next-line react-hooks/set-state-in-effect
         setFormData({
             ...initialData,
-            categoriasId: initialData.categoriasId.map(c =>
+            categoriasIds: initialData.categoriasIds.map(c =>
                 typeof c === 'number' ? c : (c as { id: number }).id
             )
         });
@@ -80,11 +80,11 @@ export const ProductForm: React.FC<ProductFormProps> = ({
 
     const handleCategoryToggle = (categoryId: number) => {
         setFormData(prev => {
-            const current = prev.categoriasId ?? [];
+            const current = prev.categoriasIds ?? [];
             const exists = current.includes(categoryId);
             return {
                 ...prev,
-                categoriasId: exists
+                categoriasIds: exists
                     ? current.filter(id => id !== categoryId)
                     : [...current, categoryId]
             };
@@ -276,7 +276,7 @@ export const ProductForm: React.FC<ProductFormProps> = ({
                                                 className="form-check-input"
                                                 type="checkbox"
                                                 id={`cat-${cat.id}`}
-                                                checked={(formData.categoriasId ?? []).includes(cat.id)}
+                                                checked={(formData.categoriasIds ?? []).includes(cat.id)}
                                                 onChange={() => handleCategoryToggle(cat.id)}
                                             />
                                             <label
@@ -293,7 +293,7 @@ export const ProductForm: React.FC<ProductFormProps> = ({
                                 )}
                             </div>
                             <small className="text-muted">
-                                {(formData.categoriasId ?? []).length} seleccionada(s)
+                                {(formData.categoriasIds ?? []).length} seleccionada(s)
                             </small>
                         </div>
 
