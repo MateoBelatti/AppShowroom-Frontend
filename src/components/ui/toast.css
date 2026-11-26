@@ -11,3 +11,13 @@
   from { opacity: 0; transform: translateY(12px); }
   to { opacity: 1; transform: translateY(0); }
 }
+
+@media (max-width: 576px) {
+  .toast-container-custom {
+    left: 12px;
+    right: 12px;
+    bottom: 12px;
+  }
+  .toast-container-custom .toast { width: 100%; max-width: none; }
+  .toast-container-custom .toast-body { font-size: 0.85rem; }
+}

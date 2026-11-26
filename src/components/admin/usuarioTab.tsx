@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Eye, Pencil, Trash2, Users } from 'lucide-react';
+import { ChevronDown, Eye, Pencil, Trash2, Users } from 'lucide-react';
 import { useUsuarios } from '../../hooks/useUsuario.hook';
 import { useClienteResumen } from '../../hooks/useClienteResumen.hook';
 import { clienteMockService } from '../../services/clienteMock.service';
@@ -15,6 +15,7 @@ export const UsuariosTab: React.FC<{ notify: Notify }> = ({ notify }) => {
     const [usuarioSeleccionado, setUsuarioSeleccionado] = useState<UsuarioDto | null>(null);
     const [editando, setEditando] = useState(false);
     const [usuarioAEliminar, setUsuarioAEliminar] = useState<UsuarioDto | null>(null);
+    const [usuarioAbierto, setUsuarioAbierto] = useState<number | null>(null);
     const { usuarios, loadingUsuarios, errorUsuarios, cargarUsuarios, updateUsuario, deleteUsuario } = useUsuarios();
     const resumen = useClienteResumen(usuarioSeleccionado);
 
@@ -67,30 +68,37 @@ export const UsuariosTab: React.FC<{ notify: Notify }> = ({ notify }) => {
                                     <th className="ps-4">Usuario</th>
                                     <th>Email</th>
                                     <th>Rol</th>
-                                    <th>Nivel <small className="text-secondary fw-normal">(ejemplo)</small></th>
+                                    <th className="d-none d-lg-table-cell">Nivel <small className="text-secondary fw-normal">(ejemplo)</small></th>
                                     <th>Acciones</th>
-                                    <th className="pe-4 text-end"> </th>
+                                    <th className="pe-4 text-end d-none d-lg-table-cell"> </th>
                                 </tr>
                             </thead>
                             <tbody>
                                 {filtrados.map(u => {
                                     const cliente = clienteMockService.getResumen(u);
                                     return (
-                                        <tr key={u.id}>
-                                            <td className="ps-4">
-                                                <div className="d-flex align-items-center gap-3">
+                                        <tr key={u.id} className={usuarioAbierto === u.id ? 'is-open' : ''}>
+                                            <td className="ps-4" data-label="Usuario">
+                                                <button
+                                                    type="button"
+                                                    className="admin-row__toggle"
+                                                    onClick={() => setUsuarioAbierto(prev => prev === u.id ? null : u.id)}
+                                                    aria-expanded={usuarioAbierto === u.id}
+                                                    aria-label={`${usuarioAbierto === u.id ? 'Cerrar' : 'Ver'} detalles de ${u.nombre}`}
+                                                >
                                                     <span className="admin-avatar">{u.nombre.charAt(0).toUpperCase()}</span>
-                                                    <span className="fw-semibold">{u.nombre}</span>
-                                                </div>
+                                                    <span className="admin-row__name fw-semibold">{u.nombre}</span>
+                                                    <ChevronDown size={18} className="admin-row__chevron" aria-hidden="true" />
+                                                </button>
                                             </td>
-                                            <td className="text-secondary">{u.email}</td>
-                                            <td>
+                                            <td className="admin-detail-cell text-secondary" data-label="Email">{u.email}</td>
+                                            <td className="admin-detail-cell" data-label="Rol">
                                                 <span className={`badge ${u.rol === 'Admin' ? 'bg-dark' : 'bg-secondary-subtle text-secondary-emphasis'}`}>
                                                     {u.rol}
                                                 </span>
                                             </td>
-                                            <td><span className="admin-tag">{cliente?.nivel ?? '—'}</span></td>
-                                            <td>
+                                            <td className="admin-detail-cell d-none d-lg-table-cell" data-label="Nivel"><span className="admin-tag">{cliente?.nivel ?? '—'}</span></td>
+                                            <td className="admin-detail-cell" data-label="Acciones">
                                                 <div className="admin-actions">
                                                     <button type="button" className="admin-action" onClick={() => setUsuarioSeleccionado(u)} aria-label={`Ver detalle de ${u.nombre}`} title="Ver detalle">
                                                         <Eye size={15} />
@@ -103,7 +111,7 @@ export const UsuariosTab: React.FC<{ notify: Notify }> = ({ notify }) => {
                                                     </button>
                                                 </div>
                                             </td>
-                                            <td className="pe-4 text-end"><small className="text-secondary">#{u.id}</small></td>
+                                            <td className="admin-detail-cell pe-4 text-end d-none d-lg-table-cell" data-label="ID"><small className="text-secondary">#{u.id}</small></td>
                                         </tr>
                                     );
                                 })}

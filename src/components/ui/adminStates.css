@@ -178,8 +178,16 @@
 }
 
 @media (max-width: 576px) {
+  .admin-page-header { gap: 10px; margin-bottom: 18px; }
+  .admin-page-header > div { min-width: 0; }
   .admin-page-header__icon { width: 40px; height: 40px; flex-basis: 40px; }
-  .admin-toolbar { align-items: stretch; }
-  .admin-toolbar__search { max-width: none; }
-  .admin-toolbar .btn { justify-content: center; }
+  .admin-page-header__icon svg { width: 19px; height: 19px; }
+  .admin-page-header__description { font-size: 0.8rem; }
+
+  .admin-toolbar { flex-direction: column; align-items: stretch; gap: 10px; margin-bottom: 14px; }
+  .admin-toolbar__search { max-width: none; flex-basis: auto; }
+  .admin-toolbar .btn { justify-content: center; width: 100%; }
+
+  .admin-card__body { padding: 16px; }
+  .admin-state { padding: 38px 16px; }
 }

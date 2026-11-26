@@ -66,7 +66,7 @@ export const CategoryForm: React.FC<CategoryFormProps> = ({
                         />
                     </div>
 
-                    <div className="d-flex justify-content-end gap-2 border-top pt-3">
+                    <div className="admin-form-actions">
                         <button 
                             type="button" 
                             className="btn btn-outline-secondary px-4 category-form-btn" 

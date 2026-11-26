@@ -162,6 +162,22 @@
 }
 
 @media (max-width: 576px) {
-  .dash-kpi { min-height: 132px; }
-  .dash-kpi__value { font-size: 1.7rem; }
+  .dash-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; margin-bottom: 18px; }
+  .dash-kpi { min-height: 120px; padding: 14px; }
+  .dash-kpi__top { align-items: flex-start; }
+  .dash-kpi__label { font-size: 0.65rem; }
+  .dash-kpi__icon { width: 30px; height: 30px; flex-basis: 30px; }
+  .dash-kpi__icon svg { width: 16px; height: 16px; }
+  .dash-kpi__value { font-size: 1.5rem; margin-top: 10px; }
+  .dash-kpi__hint { font-size: 0.7rem; }
+  .dash-kpi__soon { font-size: 0.65rem; padding: 4px 8px; }
+  .dash-critical { margin-top: 14px; }
+  .dash-critical__list { grid-template-columns: 1fr; }
+  .dash-panel { padding: 18px 14px; }
+  .dash-panel__icon { width: 46px; height: 46px; }
+  .dash-panel__text { font-size: 0.82rem; }
+}
+
+@media (max-width: 420px) {
+  .dash-grid { grid-template-columns: 1fr; }
 }

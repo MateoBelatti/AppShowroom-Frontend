@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Pencil, Plus, Trash2 } from 'lucide-react';
+import { ChevronDown, Pencil, Plus, Trash2 } from 'lucide-react';
 import { useProduct } from '../../hooks/useProduct.hook';
 import { useCategorias } from '../../hooks/useCategorias.hook';
 import type { ProductoCreateDto, ProductoDto, ProductoUpdateDto } from '../../types/producto.interface';
@@ -16,6 +16,7 @@ export const ProductosTab: React.FC<{ notify: Notify }> = ({ notify }) => {
     const [productToEdit, setProductToEdit] = useState<ProductoUpdateDto | null>(null);
     const [isFormVisible, setIsFormVisible] = useState(false);
     const [productoAEliminar, setProductoAEliminar] = useState<ProductoDto | null>(null);
+    const [productoAbierto, setProductoAbierto] = useState<number | null>(null);
     const { productos, loading, error, fetchProduct, deleteProduct, addProduct, updateProduct } = useProduct();
     const { categorias } = useCategorias();
 
@@ -126,9 +127,15 @@ export const ProductosTab: React.FC<{ notify: Notify }> = ({ notify }) => {
                                     </thead>
                                     <tbody>
                                         {filtrados.map(p => (
-                                            <tr key={p.id}>
-                                                <td className="ps-4">
-                                                    <div className="d-flex align-items-center gap-3">
+                                            <tr key={p.id} className={productoAbierto === p.id ? 'is-open' : ''}>
+                                                <td className="ps-4" data-label="Producto">
+                                                    <button
+                                                        type="button"
+                                                        className="admin-row__toggle"
+                                                        onClick={() => setProductoAbierto(prev => prev === p.id ? null : p.id)}
+                                                        aria-expanded={productoAbierto === p.id}
+                                                        aria-label={`${productoAbierto === p.id ? 'Cerrar' : 'Ver'} detalles de ${p.nombre}`}
+                                                    >
                                                         {p.imagen ? (
                                                             <img src={p.imagen} alt="" className="table-img-thumb" />
                                                         ) : (
@@ -136,29 +143,30 @@ export const ProductosTab: React.FC<{ notify: Notify }> = ({ notify }) => {
                                                         )}
                                                         <div className="min-w-0">
                                                             <div className="fw-semibold text-truncate">{p.nombre}</div>
-                                                            <small className="text-secondary d-block text-truncate">
+                                                            <small className="admin-product-desc d-none d-lg-block text-secondary text-truncate">
                                                                 {p.descripcion || 'Sin descripción'}
                                                             </small>
                                                         </div>
-                                                    </div>
+                                                        <ChevronDown size={18} className="admin-row__chevron" aria-hidden="true" />
+                                                    </button>
                                                 </td>
-                                                <td>
+                                                <td className="admin-detail-cell" data-label="Categorías">
                                                     <div className="d-flex flex-wrap gap-1">
                                                         {p.categorias.length > 0
                                                             ? p.categorias.map(c => <span className="admin-tag" key={c.id}>{c.nombre}</span>)
                                                             : <span className="text-secondary small">Sin categoría</span>}
                                                     </div>
                                                 </td>
-                                                <td className="fw-semibold">{pesos(p.precio)}</td>
-                                                <td>
+                                                <td className="admin-detail-cell fw-semibold" data-label="Precio">{pesos(p.precio)}</td>
+                                                <td className="admin-detail-cell" data-label="Stock">
                                                     <span className={p.stock <= 5 ? 'admin-stock-low' : ''}>{p.stock}</span>
                                                 </td>
-                                                <td>
+                                                <td className="admin-detail-cell" data-label="Estado">
                                                     <span className={`badge ${p.activo ? 'bg-success-subtle text-success-emphasis' : 'bg-secondary-subtle text-secondary-emphasis'}`}>
                                                         {p.activo ? 'Activo' : 'Inactivo'}
                                                     </span>
                                                 </td>
-                                                <td className="pe-4 text-end">
+                                                <td className="admin-detail-cell pe-4 text-end" data-label="Acciones">
                                                     <div className="admin-actions">
                                                         <button type="button" className="admin-action admin-action--edit" onClick={() => handlerOpenEdit(p)} aria-label={`Editar ${p.nombre}`} title="Editar">
                                                             <Pencil size={15} />

@@ -24,13 +24,13 @@ export const Sidebar: React.FC = () => {
             </NavLink>
             <hr />
             <nav className="sidebar-nav">
-                <ul className="nav nav-pills flex-column mb-auto gap-1">
+                <ul className="nav nav-pills mb-auto gap-1">
                     {items.map(({ to, label, icon: Icon, tab }) => (
                         <li className="nav-item" key={tab}>
                             <NavLink
                                 to={to}
                                 end={to === '/admin'}
-                                className={({ isActive }) => `nav-link w-100 text-start sidebar-link ${isActive ? 'active' : 'link-dark'}`}
+                                className={({ isActive }) => `nav-link sidebar-link ${isActive ? 'active' : 'link-dark'}`}
                             >
                                 <Icon size={18} strokeWidth={1.9} aria-hidden="true" />
                                 <span>{label}</span>
@@ -39,8 +39,8 @@ export const Sidebar: React.FC = () => {
                     ))}
                 </ul>
             </nav>
-            <NavLink to="/" className="sidebar-back">
-                <ArrowLeft size={16} aria-hidden="true" /> Volver a la tienda
+            <NavLink to="/" className="sidebar-back" aria-label="Volver a la tienda">
+                <ArrowLeft size={16} aria-hidden="true" /> <span className="sidebar-back__text">Volver a la tienda</span>
             </NavLink>
         </aside>
     );

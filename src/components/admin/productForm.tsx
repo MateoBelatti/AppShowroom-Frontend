@@ -255,16 +255,7 @@ export const ProductForm: React.FC<ProductFormProps> = ({
                         {/* ✅ FIX: cuadro con scroll + checkboxes en lugar de select múltiple */}
                         <div className="col-md-6">
                             <label className="form-label fw-bold">Categorías</label>
-                            <div
-                                style={{
-                                    border: '1px solid var(--border)',
-                                    borderRadius: '6px',
-                                    height: '140px',
-                                    overflowY: 'auto',
-                                    padding: '8px',
-                                    backgroundColor: 'var(--bg-card)'
-                                }}
-                            >
+                            <div className="admin-categories-box">
                                 {availableCategories.length > 0 ? (
                                     availableCategories.map(cat => (
                                         <div
@@ -315,7 +306,7 @@ export const ProductForm: React.FC<ProductFormProps> = ({
                         </div>
                     </div>
 
-                    <div className="d-flex justify-content-end gap-2 border-top pt-3">
+                    <div className="admin-form-actions">
                         <button type="button" className="btn btn-outline-secondary px-4" onClick={onCancel}>
                             Cancelar
                         </button>

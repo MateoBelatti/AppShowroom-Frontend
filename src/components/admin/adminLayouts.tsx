@@ -35,7 +35,7 @@ export const AdminLayout: React.FC = () => {
                     <Sidebar />
                 </div>
 
-                <div className="col-12 col-md-9 col-xl-10 p-4 p-md-5 admin-content">
+                <div className="col-12 col-md-9 col-xl-10 p-3 p-md-4 p-xl-5 admin-content">
                     <AdminPageHeader title={vista.title} description={vista.description} icon={vista.icon} badge="Panel admin" />
 
                     <div className="fade-in">

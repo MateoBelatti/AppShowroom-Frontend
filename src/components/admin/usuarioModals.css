@@ -5,11 +5,12 @@
   inset: 0;
   width: 100vw;
   height: 100vh;
+  height: 100dvh;
   z-index: 1060;
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 20px;
+  padding: 16px;
   background: rgba(0, 0, 0, 0.5);
   backdrop-filter: blur(3px);
 }
@@ -17,7 +18,7 @@
 .admin-modal {
   width: 100%;
   max-width: 540px;
-  max-height: min(88vh, 820px);
+  max-height: min(88dvh, 820px);
   display: flex;
   flex-direction: column;
   overflow: hidden;
@@ -45,7 +46,8 @@
   color: var(--text-h);
 }
 
-.admin-modal__title { font-size: 1.1rem; font-weight: 650; }
+.admin-modal__header > div { min-width: 0; }
+.admin-modal__title { font-size: 1.1rem; font-weight: 650; overflow-wrap: anywhere; }
 .admin-modal__subtitle { font-size: 0.8rem; color: var(--text-secondary); }
 
 .admin-modal__avatar {
@@ -186,9 +188,19 @@
 
 @media (max-width: 576px) {
   .admin-modal-overlay { padding: 10px; }
+  .admin-modal { max-height: 92dvh; }
+  .admin-modal__header { gap: 10px; padding-top: 16px; padding-bottom: 16px; }
   .admin-modal__header,
   .admin-modal__body,
-  .admin-modal__footer { padding-left: 16px; padding-right: 16px; }
-  .admin-modal__footer { flex-direction: column-reverse; }
+  .admin-modal__footer { padding-left: 14px; padding-right: 14px; }
+  .admin-modal__body { padding-top: 16px; padding-bottom: 16px; }
+  .admin-modal__footer { gap: 8px; flex-direction: column-reverse; }
   .admin-modal__footer .btn { width: 100%; }
+
+  .admin-detail-grid,
+  .admin-metrics-grid { grid-template-columns: 1fr; }
+
+  .admin-modal__header .d-flex { min-width: 0; }
+  .admin-modal__subtitle { font-size: 0.75rem; overflow-wrap: anywhere; }
+  .admin-progress-box { padding: 12px; }
 }

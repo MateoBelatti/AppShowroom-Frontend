@@ -24,7 +24,7 @@ export const ConfirmDialog: React.FC<ConfirmDialogProps> = ({
                     <span className="confirm-dialog__icon"><AlertCircle size={26} strokeWidth={1.8} /></span>
                     <h5 className="confirm-dialog__title">{title}</h5>
                     <p className="confirm-dialog__msg">{msg}</p>
-                    <div className="d-flex justify-content-center gap-2 mt-3">
+                    <div className="confirm-dialog__actions d-flex justify-content-center gap-2 mt-3">
                         <button type="button" className="btn btn-outline-secondary px-4" onClick={onCancel}>Cancelar</button>
                         <button type="button" className="btn btn-danger px-4" onClick={onConfirm} autoFocus>{confirmLabel}</button>
                     </div>
